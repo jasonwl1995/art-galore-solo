@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -18,6 +20,10 @@ function RegisterForm() {
       },
     });
   }; // end registerUser
+
+  const onLogin = (event) => {
+    history.push('/home');
+  };
 
   return (
     <form className="formPanel" onSubmit={registerUser}>
@@ -53,6 +59,10 @@ function RegisterForm() {
       </div>
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
+          {/* <h4>Already have an account?</h4>
+          <button className="btn btn_sizeSm" onClick={onLogin}>
+              Login
+          </button> */}
       </div>
     </form>
   );
