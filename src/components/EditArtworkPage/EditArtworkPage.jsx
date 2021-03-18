@@ -1,61 +1,57 @@
-import { useState, useEffect } from 'react';
+/* Import Libraries */
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { generatePath, useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-function AddArtworkForm() {
+
+function EditArtworkPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  //Global Store
-  // (STRETCH TO ADD CATEGORIES)
-  // const category = useSelector(store => store.category);
+  /* Grab data from Redux store */
+  const artwork = useSelector((store) => store.artwork);
+  // const category = useSelector((store) => store.category);
 
-  // Local Store
-  const [artworkTitle, setArtworkTitle] = useState('');
-  const [artworkImage, setArtworkImage] = useState('');
-  const [artworkDate, setArtworkDate] = useState('');
-  const [artworkDescription, setArtworkDescription] = useState('');
-  // const [artworkCategory, setArtworkCategory] = useState('');
-
-  // (STRETCH TO ADD CATEGORIES)
-  // useEffect(() => {
-  //   dispatch({
-  //     type: 'FETCH_GENRES'
-  //   });
-  // }, []);
+  /* Local state variables used for capturing form input */
+  const [editTitle, setEditTitle] = useState(artwork.title);
+  const [editImage, setEditImage] = useState(artwork.image);
+  const [editDate, setEditDate] = useState(artwork.date);
+  const [editDescription, setEditDescription] = useState(artwork.description);
+  // const [editCategory, setEditCategory] = useState(artwork.category);
 
 
-  const addArtwork = (evt) => {
-    evt.preventDefault();
-    // console.log('addArtwork log', artworkCategory);
+
+  const editArtwork = (event) => {
+    // Keep page from refreshing on form submission
+    event.preventDefault();
+
+    // Ping saga to update movie object in database
     dispatch({
       type: 'EDIT_ARTWORK',
       payload: {
+        id: artwork.id,
         title: artworkTitle,
         date: artworkDate,
         image: artworkImage,
         description: artworkDescription,
-        //  category_id: artworkCategory,
-      }
-    })
-    setArtworkTitle('');
-    setArtworkDate('');
-    setArtworkImage('');
-    setArtworkDescription('');
-    // setArtworkCategory('');
-//    history.push('/');
+        // category_id: artworkCategory,
+      },
+    });
+
+    // Navigate to detail page
+    // history.push('/details');
   };
 
   return (
-    <div>
-      {/* <h3>Add an Artwork</h3> */}
-      <form onSubmit={addArtwork}>
+    <section className="edit-page">
+      <h2>Edit Artwork</h2>
+      {/* <img
+        src={movie.poster}
+        alt={movie.title}
+        className="details-poster-size"
+      /> */}
+      <form onSubmit={editArtwork}>
         <table>
-          <tr>
-            <td>
-            <h3>Add an Artwork</h3>
-            </td>
-          </tr>
           <tr>
             <td>
               <label htmlFor="artworkTitle">Artwork Title: </label>
@@ -65,8 +61,8 @@ function AddArtworkForm() {
               name="artworkTitle"
               type="text"
               placeholder="Artwork Title"
-              value={artworkTitle}
-              onChange={(evt) => setArtworkTitle(evt.target.value)}
+              value={editTitle}
+              onChange={(event) => setEditTitle(evt.target.value)}
               />
             </td>
           </tr>
@@ -92,11 +88,12 @@ function AddArtworkForm() {
               <label htmlFor="artworkDate">Artwork Date: </label>
             </td>
             <td>
-              <textarea
+              <input
               name="artworkDate"
-              placeholder="Date Created"
-              value={artworkDate}
-              onChange={(evt) => setArtworkDate(evt.target.value)}
+              type="text"
+              placeholder="Artwork Date"
+              value={editDate}
+              onChange={(event) => setEditDate(evt.target.value)}
               />
             </td>
           </tr>
@@ -109,57 +106,37 @@ function AddArtworkForm() {
               <textarea
               name="artworkDescription"
               placeholder="Artwork Description:"
-              value={artworkDescription}
-              onChange={(evt) => setArtworkDescription(evt.target.value)}
+              value={editDescription}
+              onChange={(event) => setEditDescription(evt.target.value)}
               />
             </td>
           </tr>
 
-          {/* STRETCH ARTWORK CATEGORY */}
-          {/* <tr>
-            <td>
-              <label htmlFor="artworkCategory">Select Category: </label>
-            </td>
-            <td>
-              <select 
-                name="artworkCategory" 
-                placeholder="--- Category ---"
-                value={artworkCategory}
-                onChange={(evt) => setArtworkCategory(evt.target.value)}
-              >
-                {category.map((category, i) => {
-                  return (
-                    <option key={i} value={category.id}>{category.name}</option>
-                  )
-                })};
-              </select>
-            </td>
-          </tr> */}
-
-          <tr>
-            {/* <td>
-              <button
-                type="submit"
-                value='Add Artwork'
-              >
-                Add Artwork
-              </button>
-            </td> */}
-            <td>
-              <input type="submit" value="Save" />
-            </td>
-            
-            //Used on ARTWORK EDIT page
-            <td>
-              <Link to="/mydescription">Cancel</Link>
-            </td>
-          </tr>
-
+        {/* Movie Genre */}
+        {/* <div>
+          <label htmlFor="movieGenre">Genre:</label>
+          <select
+            name="movieGenre"
+            id="movieGenre"
+            value={editGenre}
+            onChange={(event) => setEditGenre(event.target.value)}
+          >
+            <option value="">Select a Genre</option>
+            {genres.map((genre, i) => {
+              return (
+                <option key={i} value={genre.id}>
+                  {genre.name}
+                </option>
+              );
+            })}
+          </select>
+        </div> */}
+        <button className="save-button">Save</button>
         </table>
       </form>
-
-    </div>
+    </section>
   );
 }
 
-export default AddArtworkForm;
+export default EditArtworkPage;
+

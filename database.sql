@@ -3,16 +3,22 @@
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
+
+DROP TABLE "user";
+DROP TABLE "artwork";
+DROP TABLE "like_log";
+DROP TABLE "category";
+--DROP TABLE "artwork_category";
+
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
-    "picture" VARCHAR (255) NOT NULL,
     "user_intro" VARCHAR (1000),
     "address" VARCHAR (255),
     "city" VARCHAR (255),
     "state" VARCHAR (255),
-    "zip" INT,
+    "zip" INT
 );
 
 CREATE TABLE "artwork" (
@@ -22,8 +28,10 @@ CREATE TABLE "artwork" (
     "date" DATE NOT NULL, 
     "image" VARCHAR (255) NOT NULL,
     "description" VARCHAR (1000) NOT NULL,
-    "category_id" INT REFERENCES "category"
+	"category_id" INT REFERENCES "category"
 );
+
+
 
 CREATE TABLE "like_log" (
     "id" SERIAL PRIMARY KEY,
@@ -33,5 +41,11 @@ CREATE TABLE "like_log" (
 
 CREATE TABLE "category" (
     "id" SERIAL PRIMARY KEY,
-    "theme" VARCHAR (255)
+    "theme" VARCHAR (255) NOT NULL
 );
+
+--CREATE TABLE "artwork_category" (
+--  "id" SERIAL PRIMARY KEY,
+--  "artwork_id" INT REFERENCES "artwork" NOT NULL,
+--  "category_id" INT REFERENCES "category" NOT NULL
+--);

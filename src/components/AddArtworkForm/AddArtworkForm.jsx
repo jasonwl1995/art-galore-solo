@@ -19,7 +19,7 @@ function AddArtworkForm() {
   // (STRETCH TO ADD CATEGORIES)
   // useEffect(() => {
   //   dispatch({
-  //     type: 'FETCH_GENRES'
+  //     type: 'FETCH_CATEGORY'
   //   });
   // }, []);
 
@@ -34,7 +34,7 @@ function AddArtworkForm() {
         date: artworkDate,
         image: artworkImage,
         description: artworkDescription,
-        // genre_id: movieGenre,
+        // category_id: artworkCategory,
       }
     })
     setArtworkTitle('');
