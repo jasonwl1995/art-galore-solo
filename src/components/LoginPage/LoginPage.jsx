@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import LoginForm from '../LoginForm/LoginForm';
 import { useHistory } from 'react-router-dom';
 import img from '../images/logo.png';
+import img1 from '../images/gallery.jpeg';
 import './LoginPage.css';
 
 function LoginPage() {
@@ -9,9 +10,14 @@ function LoginPage() {
   const history = useHistory();
 
   return (
-    <div>
-      <h1>{heading}</h1>
+    <div className="container">
+      <h2>{heading}</h2>
       <img className="logo" src={img}/>
+
+      <div className="grid">
+        <img className="logo" src={img1} width="360px" height="200px"/>
+
+        <div className="grid-col grid-col_4">
 
       <LoginForm />
 
@@ -26,6 +32,8 @@ function LoginPage() {
           Register
         </button>
       </center>
+        </div>
+      </div>
     </div>
   );
 }
