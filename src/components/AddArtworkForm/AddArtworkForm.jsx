@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, useHistory, Link } from 'react-router-dom';
 
-function MovieAddPage() {
+function AddArtworkForm() {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -143,4 +143,4 @@ function MovieAddPage() {
   );
 }
 
-export default MovieAddPage;
+export default AddArtworkForm;
