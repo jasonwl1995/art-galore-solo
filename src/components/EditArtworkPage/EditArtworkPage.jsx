@@ -8,13 +8,14 @@ function AddArtworkForm() {
 
   //Global Store
   // (STRETCH TO ADD CATEGORIES)
-  // const genres = useSelector(store => store.genres);
+  // const category = useSelector(store => store.category);
 
-  //Local Store
+  // Local Store
   const [artworkTitle, setArtworkTitle] = useState('');
   const [artworkImage, setArtworkImage] = useState('');
   const [artworkDate, setArtworkDate] = useState('');
   const [artworkDescription, setArtworkDescription] = useState('');
+  // const [artworkCategory, setArtworkCategory] = useState('');
 
   // (STRETCH TO ADD CATEGORIES)
   // useEffect(() => {
@@ -26,29 +27,35 @@ function AddArtworkForm() {
 
   const addArtwork = (evt) => {
     evt.preventDefault();
-    // console.log('addArtwork log', movieGenre);
+    // console.log('addArtwork log', artworkCategory);
     dispatch({
-      type: 'ADD_ARTWORK',
+      type: 'EDIT_ARTWORK',
       payload: {
         title: artworkTitle,
         date: artworkDate,
         image: artworkImage,
         description: artworkDescription,
-        // genre_id: movieGenre,
+        //  category_id: artworkCategory,
       }
     })
     setArtworkTitle('');
     setArtworkDate('');
     setArtworkImage('');
     setArtworkDescription('');
+    // setArtworkCategory('');
 //    history.push('/');
   };
 
   return (
     <div>
-      <h3>Add an Artwork</h3>
+      {/* <h3>Add an Artwork</h3> */}
       <form onSubmit={addArtwork}>
         <table>
+          <tr>
+            <td>
+            <h3>Add an Artwork</h3>
+            </td>
+          </tr>
           <tr>
             <td>
               <label htmlFor="artworkTitle">Artwork Title: </label>
@@ -111,18 +118,18 @@ function AddArtworkForm() {
           {/* STRETCH ARTWORK CATEGORY */}
           {/* <tr>
             <td>
-              <label htmlFor="movieGenre">Select Genre: </label>
+              <label htmlFor="artworkCategory">Select Category: </label>
             </td>
             <td>
               <select 
-                name="movieGenre" 
-                placeholder="--- Genres ---"
-                value={movieGenre}
-                onChange={(evt) => setMovieGenre(evt.target.value)}
+                name="artworkCategory" 
+                placeholder="--- Category ---"
+                value={artworkCategory}
+                onChange={(evt) => setArtworkCategory(evt.target.value)}
               >
-                {genres.map((genre, i) => {
+                {category.map((category, i) => {
                   return (
-                    <option key={i} value={genre.id}>{genre.name}</option>
+                    <option key={i} value={category.id}>{category.name}</option>
                   )
                 })};
               </select>
@@ -130,22 +137,22 @@ function AddArtworkForm() {
           </tr> */}
 
           <tr>
-            <td>
+            {/* <td>
               <button
                 type="submit"
                 value='Add Artwork'
               >
                 Add Artwork
               </button>
-            </td>
-            {/* <td>
+            </td> */}
+            <td>
               <input type="submit" value="Save" />
             </td>
             
             //Used on ARTWORK EDIT page
             <td>
-              <Link to="/">Cancel</Link>
-            </td> */}
+              <Link to="/mydescription">Cancel</Link>
+            </td>
           </tr>
 
         </table>

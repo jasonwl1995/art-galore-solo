@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
+import img from '../images/logo.png';
 import {useSelector} from 'react-redux';
 
 function Nav() {
@@ -13,14 +14,15 @@ function Nav() {
   };
 
   if (user.id != null) {
-    loginLinkData.path = '/home';
-    loginLinkData.text = 'Home';
+    loginLinkData.path = '/user';
+    loginLinkData.text = 'Profile';
   }
 
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
+        <img className="logo" src={img}/>
+        {/* <h2 className="nav-title">Prime Solo Project</h2> */}
       </Link>
       <div>
         <Link className="navLink" to={loginLinkData.path}>
@@ -29,10 +31,19 @@ function Nav() {
 
         {user.id && (
           <>
-            <Link className="navLink" to="/info">
-              Info Page
+            <Link className="navLink" to="/discover">
+              Discover
             </Link>
-            <LogOutButton className="navLink" />
+            {/* <Link className="navLink" to="/user">
+              Profile
+            </Link> */}
+            <Link className="navLink" to="/mygallery">
+              My Gallery
+            </Link>
+            <Link className="navLink" to="/likes">
+              Likes
+            </Link>
+            <LogOutButton className="navLink" to="/home"/>
           </>
         )}
 

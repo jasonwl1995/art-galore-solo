@@ -6,8 +6,12 @@ import img1 from '../images/gallery.jpeg';
 import './LoginPage.css';
 
 function LoginPage() {
-  const [heading, setHeading] = useState('Welcome');
+  const [heading, setHeading] = useState('Welcome to');
   const history = useHistory();
+
+  const onRegister = (event) => {
+    history.push('/registration');
+  };
 
   return (
     <div className="container">
@@ -22,13 +26,8 @@ function LoginPage() {
       <LoginForm />
 
       <center>
-        <button
-          type="button"
-          className="btn btn_asLink"
-          onClick={() => {
-            history.push('/registration');
-          }}
-        >
+        <h4>New User?</h4>
+        <button className="btn btn_sizeSm" onClick={onRegister}>
           Register
         </button>
       </center>

@@ -7,6 +7,7 @@ CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
+    "picture" VARCHAR (255) NOT NULL,
     "user_intro" VARCHAR (1000),
     "address" VARCHAR (255),
     "city" VARCHAR (255),
