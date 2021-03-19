@@ -22,7 +22,7 @@ function ArtworkDetail() {
 
   // const likeArtwork = ({artwork.id}) => {
   //   dispatch({
-  //     type: 'ADD_FAVORITE',
+  //     type: 'ADD_LIKE',
   //     payload: { artwork.id }
   //   });
   // };
@@ -37,7 +37,9 @@ function ArtworkDetail() {
       </section>
 
       <section>
-        <h3>{artwork.user}</h3>
+        <Link>
+          <h3>{artwork.user}</h3>
+        </Link>
         <h3>{artwork.date}</h3>
       </section>
 

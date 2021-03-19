@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 
 
-function EditArtworkPage() {
+function EditUserPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
   /* Grab data from Redux store */
-  const artwork = useSelector((store) => store.artwork);
+  const user = useSelector((store) => store.user);
   // const category = useSelector((store) => store.category);
 
   /* Local state variables used for capturing form input */
@@ -19,28 +19,27 @@ function EditArtworkPage() {
   // const [editDescription, setEditDescription] = useState(artwork.description);
   // const [editCategory, setEditCategory] = useState(artwork.category);
 
-  const [editTitle, setEditTitle] = useState('');
-  const [editImage, setEditImage] = useState('');
-  const [editDate, setEditDate] = useState('');
-  const [editDescription, setEditDescription] = useState('');
+  const [editUsername, setEditUsername] = useState('');
+  const [editPFP, setEditPFP] = useState('');
+  const [editIntro, setEditIntro] = useState('');
+  // const [editAddress, setEditAddress] = useState('');
 
 
 
-  const editArtwork = (event) => {
+  const editUser = (event) => {
     // Keep page from refreshing on form submission
     event.preventDefault();
 
     // Ping saga to update movie object in database
     dispatch({
-      type: 'EDIT_ARTWORK',
+      type: 'EDIT_USER',
       payload: {
-        id: artwork.id,
-        title: editTitle,
+        id: user.id,
+        username: editUsername,
         // image: artworkImage,
-        date: editDate,
-        image: editImage,
-        description: editDescription,
-        // category_id: editCategory,
+        pfp: editPFP,
+        intro: editIntro,
+        // category_id: artworkCategory,
       },
     });
 
@@ -50,25 +49,25 @@ function EditArtworkPage() {
 
   return (
     <section className="edit-page">
-      <h2>Edit Artwork</h2>
+      <h2>Edit User</h2>
       {/* <img
         src={movie.poster}
         alt={movie.title}
         className="details-poster-size"
       /> */}
-      <form onSubmit={editArtwork}>
+      <form onSubmit={editUser}>
         <table>
           <tr>
             <td>
-              <label htmlFor="artworkTitle">Artwork Title: </label>
+              <label htmlFor="username">Username: </label>
             </td>
             <td>
               <input
-              name="artworkTitle"
+              name="username"
               type="text"
-              placeholder="Artwork Title"
-              value={editTitle}
-              onChange={(event) => setEditTitle(evt.target.value)}
+              placeholder="New Username"
+              value={editUsername}
+              onChange={(event) => setEditUsername(evt.target.value)}
               />
             </td>
           </tr>
@@ -89,61 +88,28 @@ function EditArtworkPage() {
             </td>
           </tr> */}
 
-          <tr>
-            <td>
-              <label htmlFor="artworkDate">Artwork Date: </label>
-            </td>
-            <td>
-              <input
-              name="artworkDate"
-              type="text"
-              placeholder="Artwork Date"
-              value={editDate}
-              onChange={(event) => setEditDate(evt.target.value)}
-              />
-            </td>
-          </tr>
 
           <tr>
             <td>
-              <label htmlFor="artworkDescription">Artwork Description: </label>
+              <label htmlFor="userIntro">Gallery Introduction: </label>
             </td>
             <td>
               <textarea
-              name="artworkDescription"
-              placeholder="Artwork Description:"
-              value={editDescription}
-              onChange={(event) => setEditDescription(evt.target.value)}
+              name="userIntro"
+              placeholder="Introduce yourself and your work!"
+              value={editIntro}
+              onChange={(event) => setEditIntro(evt.target.value)}
               />
             </td>
           </tr>
 
-        {/* Movie Genre */}
-        {/* <div>
-          <label htmlFor="movieGenre">Genre:</label>
-          <select
-            name="movieGenre"
-            id="movieGenre"
-            value={editGenre}
-            onChange={(event) => setEditGenre(event.target.value)}
-          >
-            <option value="">Select a Genre</option>
-            {genres.map((genre, i) => {
-              return (
-                <option key={i} value={genre.id}>
-                  {genre.name}
-                </option>
-              );
-            })}
-          </select>
-        </div> */}
           <tr>
             <td>
               <button className="save-button">Save</button>
               {/* <input type="submit" value="Save" /> */}
             </td>
             <td>
-              <button onClick = {() => history.push('/details')}>
+              <button onClick = {() => history.push('/user')}>
                 Cancel
               </button>
             </td>
@@ -155,5 +121,5 @@ function EditArtworkPage() {
   );
 }
 
-export default EditArtworkPage;
+export default EditUserPage;
 

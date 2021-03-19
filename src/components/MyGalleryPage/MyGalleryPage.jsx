@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import './GalleryPage.css';
 
-function DiscoverGalleryPage() {
+function MyGalleryPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -46,4 +46,4 @@ function DiscoverGalleryPage() {
     );
 }
 
-export default DiscoverGalleryPage;
+export default MyGalleryPage;
