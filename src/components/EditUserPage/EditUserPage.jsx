@@ -42,7 +42,7 @@ function EditUserPage() {
     });
 
     // Navigate to profile page
-    history.push('/user');
+    history.push('/');
   };
 
   return (
@@ -107,7 +107,7 @@ function EditUserPage() {
               {/* <input type="submit" value="Save" /> */}
             </td>
             <td>
-              <button onClick = {() => history.push('/user')}>
+              <button onClick = {() => history.push('/')}>
                 Cancel
               </button>
             </td>
