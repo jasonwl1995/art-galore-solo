@@ -1,7 +1,7 @@
 /* Import Libraries */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 
 function EditArtworkPage() {
@@ -13,11 +13,16 @@ function EditArtworkPage() {
   // const category = useSelector((store) => store.category);
 
   /* Local state variables used for capturing form input */
-  const [editTitle, setEditTitle] = useState(artwork.title);
-  const [editImage, setEditImage] = useState(artwork.image);
-  const [editDate, setEditDate] = useState(artwork.date);
-  const [editDescription, setEditDescription] = useState(artwork.description);
+  // const [editTitle, setEditTitle] = useState(artwork.title);
+  // const [editImage, setEditImage] = useState(artwork.image);
+  // const [editDate, setEditDate] = useState(artwork.date);
+  // const [editDescription, setEditDescription] = useState(artwork.description);
   // const [editCategory, setEditCategory] = useState(artwork.category);
+
+  const [editTitle, setEditTitle] = useState('');
+  const [editImage, setEditImage] = useState('');
+  const [editDate, setEditDate] = useState('');
+  const [editDescription, setEditDescription] = useState('');
 
 
 
@@ -31,6 +36,7 @@ function EditArtworkPage() {
       payload: {
         id: artwork.id,
         title: artworkTitle,
+        // image: artworkImage,
         date: artworkDate,
         image: artworkImage,
         description: artworkDescription,
@@ -131,7 +137,18 @@ function EditArtworkPage() {
             })}
           </select>
         </div> */}
-        <button className="save-button">Save</button>
+          <tr>
+            <td>
+              <button className="save-button">Save</button>
+              {/* <input type="submit" value="Save" /> */}
+            </td>
+            <td>
+              <button onClick = {() => history.push('/details')}>
+                Cancel
+              </button>
+            </td>
+          </tr>
+        
         </table>
       </form>
     </section>

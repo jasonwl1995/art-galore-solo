@@ -2,6 +2,7 @@ import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector} from 'react-redux';
 import AddArtworkForm from '../AddArtworkForm/AddArtworkForm';
+import EditArtworkPage from '../EditArtworkPage/EditArtworkPage';
 
 function ProfilePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -12,6 +13,7 @@ function ProfilePage() {
       <p>Your ID is: {user.id}</p>
       <LogOutButton className="btn" />
       <AddArtworkForm />
+      <EditArtworkPage />
     </div>
   );
 }

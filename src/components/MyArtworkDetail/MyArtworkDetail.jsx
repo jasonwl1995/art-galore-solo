@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
-function ArtworkDetail() {
+function MyArtworkDetail() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
@@ -12,7 +12,6 @@ function ArtworkDetail() {
 
   // on load, get(fetch)
   // Display details on the page
-  console.log("params", params);
   useEffect(() => {
     dispatch({
       type: 'GET_ARTWORK',
@@ -20,14 +19,22 @@ function ArtworkDetail() {
     });
   }, []);
 
-  // const likeArtwork = ({artwork.id}) => {
-  //   dispatch({
-  //     type: 'ADD_FAVORITE',
-  //     payload: { artwork.id }
-  //   });
-  // };
+  const editArtwork = () => {
 
-  console.log("artwork", artwork);
+    // Store the movie to be edited in the <EditArtwork /> component in the Redux store
+    dispatch({
+      type: 'EDIT_ARTWORK',
+      payload: {
+      artworkId,
+      userId,
+      }
+    });
+
+    // Navigate to `/editArtwork` page
+    history.push('/editArtwork');
+  };
+
+  console.log( "artwork", artwork);
   return (
     <div>
       <img src={artwork.image} alt={artwork.title} />
@@ -37,7 +44,6 @@ function ArtworkDetail() {
       </section>
 
       <section>
-        <h3>{artwork.user}</h3>
         <h3>{artwork.date}</h3>
       </section>
 
@@ -56,16 +62,16 @@ function ArtworkDetail() {
       ) : (
         <div></div>
       )} */}
+      <button className="edit-button" onClick={editArtwork}>
+        Edit
+      </button>
 
-      {/* <button onClick = {() => likeArtwork{artwork.id}}>
-        Like
-      </button> */}
-
-      <button onClick = {() => history.push('/gallery')}>
+      <button onClick = {() => history.push('/mygallery')}>
         Back to Gallery
       </button>
+
     </div>
   );
 }
 
-export default ArtworkDetail;
+export default MyArtworkDetail;

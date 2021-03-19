@@ -1,9 +1,3 @@
-
--- USER is a reserved keyword with Postgres
--- You must use double quotes in every query that user is in:
--- ex. SELECT * FROM "user";
--- Otherwise you will have errors!
-
 DROP TABLE "user";
 DROP TABLE "artwork";
 DROP TABLE "like_log";
@@ -14,6 +8,7 @@ CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
+    "pfp" VARCHAR (255),
     "user_intro" VARCHAR (1000),
     "address" VARCHAR (255),
     "city" VARCHAR (255),

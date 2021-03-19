@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, useHistory, Link } from 'react-router-dom';
 
@@ -31,6 +31,7 @@ function AddArtworkForm() {
       type: 'ADD_ARTWORK',
       payload: {
         title: artworkTitle,
+        // image: artworkImage,
         date: artworkDate,
         image: artworkImage,
         description: artworkDescription,
@@ -67,7 +68,7 @@ function AddArtworkForm() {
           {/* // ADD s3 IMAGE CALL */}
           {/* <tr>
             <td>
-              <label htmlFor="moviePoster">Movie Poster URL: </label>
+              <label htmlFor="artworkImage">Movie Poster URL: </label>
             </td>
             <td>
               <input
@@ -85,8 +86,9 @@ function AddArtworkForm() {
               <label htmlFor="artworkDate">Artwork Date: </label>
             </td>
             <td>
-              <textarea
+              <input
               name="artworkDate"
+              type="text"
               placeholder="Date Created"
               value={artworkDate}
               onChange={(evt) => setArtworkDate(evt.target.value)}
