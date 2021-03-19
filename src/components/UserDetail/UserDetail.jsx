@@ -48,4 +48,4 @@ function UserDetail() {
   );
 }
 
-export default MovieDetailPage;
+export default UserDetail;

@@ -13,11 +13,10 @@ function EditUserPage() {
   // const category = useSelector((store) => store.category);
 
   /* Local state variables used for capturing form input */
-  // const [editTitle, setEditTitle] = useState(artwork.title);
-  // const [editImage, setEditImage] = useState(artwork.image);
-  // const [editDate, setEditDate] = useState(artwork.date);
-  // const [editDescription, setEditDescription] = useState(artwork.description);
-  // const [editCategory, setEditCategory] = useState(artwork.category);
+  const [editUsername, setEditUsername] = useState(user.username);
+  const [editPFP, setEditPFP] = useState(user.pfp);
+  const [editIntro, setEditIntro] = useState(user.intro);
+  // const [editAddress, setEditAddress] = useState(user.address);
 
   const [editUsername, setEditUsername] = useState('');
   const [editPFP, setEditPFP] = useState('');
@@ -30,21 +29,20 @@ function EditUserPage() {
     // Keep page from refreshing on form submission
     event.preventDefault();
 
-    // Ping saga to update movie object in database
+    // Ping saga to update user object in database
     dispatch({
       type: 'EDIT_USER',
       payload: {
         id: user.id,
         username: editUsername,
-        // image: artworkImage,
         pfp: editPFP,
         intro: editIntro,
-        // category_id: artworkCategory,
+        address: editAddress
       },
     });
 
-    // Navigate to detail page
-    // history.push('/details');
+    // Navigate to profile page
+    history.push('/user');
   };
 
   return (
