@@ -1,30 +1,38 @@
 /* Import Libraries */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, useParams } from 'react-router-dom';
 import ImageUpload from '../ImageUpload/ImageUpload';
 
 
 function EditArtworkPage() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const params = useParams();
+  const artworkid = params;
 
   /* Grab data from Redux store */
-  const artwork = useSelector((store) => store.artwork);
+  const detail = useSelector((store) => store.detail);
+  console.log('details', detail);
   // const category = useSelector((store) => store.category);
 
   /* Local state variables used for capturing form input */
-  // const [editTitle, setEditTitle] = useState(artwork.title);
-  // const [editImage, setEditImage] = useState(artwork.image);
-  // const [editDate, setEditDate] = useState(artwork.date);
-  // const [editDescription, setEditDescription] = useState(artwork.description);
+  const [editTitle, setEditTitle] = useState(detail.title);
+  const [editImage, setEditImage] = useState(detail.image);
+  const [editDate, setEditDate] = useState(detail.date);
+  const [editDescription, setEditDescription] = useState(detail.description);
   // const [editCategory, setEditCategory] = useState(artwork.category);
 
-  const [editTitle, setEditTitle] = useState('');
-  const [editImage, setEditImage] = useState('');
-  const [editDate, setEditDate] = useState('');
-  const [editDescription, setEditDescription] = useState('');
-
+  // const [editTitle, setEditTitle] = useState('');
+  // const [editImage, setEditImage] = useState('');
+  // const [editDate, setEditDate] = useState('');
+  // const [editDescription, setEditDescription] = useState('');
+    useEffect(() => {
+    dispatch({
+      type: 'FETCH_ARTWORK_DETAIL',
+      payload: {artworkid: params.id},
+    });
+  }, []);
 
 
   const editArtwork = (event) => {
@@ -74,12 +82,27 @@ function EditArtworkPage() {
             </td>
           </tr>
 
-          <tr>
+          {/* <tr>
             <td>
             <label htmlFor="artworkImage">Artwork Image: </label>
             </td>
             <td>
               <ImageUpload />
+            </td>
+          </tr> */}
+
+          <tr>
+            <td>
+              <label htmlFor="artworkImage">Artwork Thumbnail URL: </label>
+            </td>
+            <td>
+              <input
+              name="artworkImage"
+              type="text"
+              placeholder="Artwork Image URL"
+              value={editImage}
+              onChange={(evt) => setEditImage(evt.target.value)}
+              />
             </td>
           </tr>
 

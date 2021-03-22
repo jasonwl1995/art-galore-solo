@@ -5,7 +5,7 @@ function* artworkSaga() {
   yield takeLatest('FETCH_USER_ARTWORK', fetchUserArtwork);
   yield takeLatest('DISCOVER_GALLERY_ARTWORK', discoverGalleryArtwork);   //discover gallery
 
-  yield takeLatest('FETCH_DETAIL', fetchArtworkDetails);
+  yield takeLatest('FETCH_ARTWORK_DETAIL', fetchArtworkDetail);
 
   yield takeLatest('ADD_ARTWORK', addArtwork);
   yield takeLatest('EDIT_ARTWORK', editArtwork);
@@ -48,8 +48,9 @@ function* discoverGalleryArtwork(action) {
 
 // Get artwork detail from database
 function* fetchArtworkDetails(action){
+  console.log('fetch details', action.payload);
   try{
-    const details = yield axios.get(`/api/artwork/${action.payload.id}`);
+    const details = yield axios.get(`/api/artwork/detail/${action.payload.artworkid}`);
     console.log('GET ARTWORK details', details.data);
     yield put({
       type: 'SET_DETAILS',

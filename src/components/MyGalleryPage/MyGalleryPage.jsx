@@ -19,7 +19,7 @@ function MyGalleryPage() {
   }, []);
 
   const editArtwork = (artworkid) => {
-    history.push(`/artworkdetail/${artworkid}`);
+    history.push(`/edit/${artworkid}`);
   };
 
   const deleteArtwork = (artworkid) => {

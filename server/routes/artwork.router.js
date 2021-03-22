@@ -147,12 +147,13 @@ router.delete('/:id', (req, res) => {
           })
           .catch(err2=> {
                 console.error("failed deleting from artwork table: ", err3);
+            })
           })
-      })
       .catch((err1) => {
               console.log('afailed deleting from like_log table: ', err1);
         res.sendStatus(500);
       });
+     
   });
    
 //this is to handle put request
