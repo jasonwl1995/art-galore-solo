@@ -111,14 +111,23 @@ function* editArtwork(action) {
   }
 }
 
+// worker Saga: will be fired on "DETELE_ARTWORK" actions, artowrk id should be in action.payload
 function* deleteArtwork(action) {
-  try{
-    yield axios.delete(`/api/artwork/${action.payload}`);
-    yield put ({
-      type: 'FETCH_ARTWORK'
-    });
+  try {
+    // need for credentials ???
+    const response = yield axios.delete(`/api/artwork/${action.payload.artworkid}`);
+
+    //if successfully deteled the artwork, need to refresh store with database data, so kick off a FETCH....
+    if (response.status === 200)
+    {
+      yield put({ 
+        type: 'FETCH_USER_ARTWORK', 
+        payload: {userid: action.payload.userid}
+      });
+    }
+
   } catch (error) {
-    alert('error deleting item')
+    console.log('delete artwork request failed', error);
   }
 }
 

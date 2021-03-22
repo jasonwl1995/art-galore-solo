@@ -18,12 +18,20 @@ function MyGalleryPage() {
     });
   }, []);
 
-  // const likeArtwork = ({artwork.id}) => {
-  //   dispatch({
-  //     type: 'ADD_LIKE',
-  //     payload: { artwork.id }
-  //   });
-  // };
+  const editArtwork = (artworkid) => {
+    history.push(`/artworkdetail/${artworkid}`);
+  };
+
+  const deleteArtwork = (artworkid) => {
+
+    dispatch({
+      type: 'DELETE_ARTWORK',
+      payload: {
+        artworkid: artworkid,
+        userid: user.id,
+      }
+    });
+ };
   
 
   return(
@@ -47,7 +55,7 @@ function MyGalleryPage() {
                         </div>
                         <br></br>
                         <div>
-                          <h3>{artwork.title} : {artwork.theme} by {artwork.username} </h3>
+                          <h3>{artwork.title}</h3>
                         </div>
                         <br></br>
                         <div>

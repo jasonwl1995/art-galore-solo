@@ -8,29 +8,6 @@ const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
-// //handle adding artwork request  -- all artwork??
-// //how to handle request to retrive special lists, like my own artwork, some particualr artist's artwork, etc
-// //this is to get all artworks for all users (artists)
-// router.get('/', (req, res) => {
-  
-//   //let queryText = `select * from artwork order by user_id asc`;
-//   //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
-//   const queryText = `SELECT art.*, cat.theme, usr.username, 
-//                     (SELECT count(1) FROM like_log ll WHERE ll.user_id = usr.id AND ll.artwork_id = art.id) AS favorite
-//                     FROM artwork art, category cat, "user" usr WHERE art.category_id = cat.id AND art.user_id = usr.id`;
-
-//     .query(queryText)
-//     .then((result) => {
-//         //if (process.env.DEBUG) 
-//         //    console.log('artwork list is:', result.rows);
-//         res.send(result.rows);
-//     })
-//     .catch((err) => {
-//       console.log('artwork retrieving failed: ', err);
-//       res.sendStatus(500);
-//     });
-// });
-
 // this is to get artworks from others except the user
 router.get('/discovergallery/:id', (req, res) => {
   
@@ -55,32 +32,6 @@ router.get('/discovergallery/:id', (req, res) => {
       });
   });
 
-//   //this is to get artworks from others except the user
-// router.get('/discovergallery/:id', (req, res) => {
-  
-//     let uid = req.params.id;
-//     console.log('discovergallery server router:', uid);
-//     //let queryText = `select * from artwork order by user_id asc`;
-//     //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
-//     const queryText = `select art.*, cat.theme, usr.username, 
-//                       (select count(1) from like_log ll where ll.user_id = $1 and ll.artwork_id = art.id) as favorite
-//                       from artwork art, category cat, "user" usr where art.category_id = cat.id and art.user_id = usr.id and usr.id <> $2 `;
-  
-//     pool
-//       .query(queryText, [uid, uid])
-//       .then((result) => {
-//           //if (process.env.DEBUG) 
-//           //    console.log('artwork list is:', result.rows);
-//           res.send(result.rows);
-//       })
-//       .catch((err) => {
-//           if (process.env.DEBUG) 
-//               console.log('artwork retrieving failed: ', err);
-//         res.sendStatus(500);
-//       });
-//   });
-
-
 //this is to get artworks for one user (artisit)
 router.get('/:id', (req, res) => {
   
@@ -103,7 +54,6 @@ router.get('/:id', (req, res) => {
         res.sendStatus(500);
       });
   });
-
 
 
 //this is to update the Like 
@@ -176,50 +126,34 @@ router.delete('/:id', (req, res) => {
     console.log('artwork to delete:', artworkID);
     /*
     //need to run the following 3 queries, in the following order
-        delete from like_log where artwork_id = artworkID
-        delete from artwork_category where artwork_id = artworkID
-        delete from artwork where id = artworkID
+        delete from like_log where artwork_id = aid
+        delete from artwork_category where artwork_id = aid
+        delete from artwork where id = aid
     */
     //let queryText = `select * from artwork order by user_id asc`;
     //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
     //is there a way to run 3 queries as a whole????
 
     //the following codes worked fine and it did delete from all 3 tables
-    const queryText1 = `DELETE FROM like_log FROM artwork_id = $1 `;
+    const queryText1 = `delete from like_log where artwork_id = $1 `;
     pool
       .query(queryText1, [artworkID])
       .then((result1) => {
-          //if success, run 2nd query
-          const sqlText2 = `DELETE FROM artwork_category WHERE artwork_id = $1`;
-          pool.query(sqlText2, [artworkID])
+        const sqlText2 = `delete from artwork where id = $1`;
+        pool.query(sqlText2, [artworkID])
           .then((result2) => {
-            //if success, run 3rd query
-            const sqlText3 = `DELETE FROM artwork WHERE id = $1`;
-            pool.query(sqlText3, [artworkID])
-            .then((result3) => {
-                //success, all is ok
-                res.sendStatus(200);
-            })
-            .catch(err3=> {
-                console.error("failed deleting from artwork table: ", err3);
-            })
-
+            //success, all is ok
+            res.sendStatus(200);
           })
-          .catch (err2 => {
-              if (process.env.DEBUG) 
-              console.log('failed deleting from artwork_category table: ', err2);
-              res.sendStatus(500);
-
+          .catch(err2=> {
+                console.error("failed deleting from artwork table: ", err3);
           })
       })
       .catch((err1) => {
-          if (process.env.DEBUG) 
-              console.log('failed deleting from like_log table: ', err1);
+              console.log('afailed deleting from like_log table: ', err1);
         res.sendStatus(500);
       });
-     
   });
-
    
 //this is to handle put request
 router.put('/', (req, res) => {
