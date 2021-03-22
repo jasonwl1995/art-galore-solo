@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link} from 'react-router-dom';
 
 function ArtworkDetail() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
+  const artworkId = params;
 
   // data from redux
-  const artwork = useSelector(store => store.artwork);
+  const detail = useSelector(store => store.detail);
   const user = useSelector((store) => store.user);
 
   // on load, get(fetch)
@@ -16,11 +17,23 @@ function ArtworkDetail() {
   console.log("params", params);
   useEffect(() => {
     dispatch({
-      type: 'FETCH_DETAIL',
-      payload: params,
+      type: 'FETCH_ARTWORK_DETAIL',
+      payload: {
+        artworkId: artworkId.id
+        }
     });
   }, []);
 
+  // const userChange = (newUser) => {
+
+  //   dispatch({
+  //     type: 'DISCOVER_USER_ARTWORK',
+  //     payload: {
+  //       userid: user.id,
+  //       discover_userid: newUser,
+  //     }
+  //   });
+  
   // const likeArtwork = ({artwork.id}) => {
   //   dispatch({
   //     type: 'ADD_LIKE',
@@ -28,26 +41,41 @@ function ArtworkDetail() {
   //   });
   // };
 
-  console.log("artwork", artwork);
+  console.log("detail", detail);
   return (
     <div>
-      <img src={artwork.image} alt={artwork.title} />
+      <img src={detail.image} alt={detail.title} />
 
       <section>
-        <h2>{artwork.title}</h2>
+        <h2>{detail.title}</h2>
       </section>
 
       <section>
-        <Link>
-          <h3>{artwork.user}</h3>
-          <h3>{user.username}</h3>
-        </Link>
-        <h3>{artwork.date}</h3>
+        {/* <Link onClick={clickHandler}> */}
+        
+        <h3>Artist: 
+          {/* <Link>
+            {detail.username}
+          </Link> */}
+        <button onClick = {() => history.push(`/discover/${detail.user_id}`)}>
+          {detail.username}
+        </button>
+        </h3>
       </section>
 
       <section>
-        <p>{artwork.description}</p>
+        <h3>Date created: {detail.date}</h3>
       </section>
+
+      <section>
+        <p>Category: {detail.theme}</p>
+      </section>
+
+      <section>
+        <p>Description:</p>
+        <p>{detail.description}</p>
+      </section>
+      
       
       {/* {details.array_agg ? (
       <span>
@@ -65,8 +93,8 @@ function ArtworkDetail() {
         Like
       </button> */}
 
-      <button onClick = {() => history.push('/gallery')}>
-        Back to Gallery
+      <button onClick = {() => history.push('/discover')}>
+        Back to Discover
       </button>
     </div>
   );

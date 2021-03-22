@@ -25,6 +25,8 @@ import DiscoverGalleryPage from '../DiscoverGalleryPage/DiscoverGalleryPage';
 import MyGalleryPage from '../MyGalleryPage/MyGalleryPage';
 import EditArtworkPage from '../EditArtworkPage/EditArtworkPage';
 import MyArtworkDetail from '../MyArtworkDetail/MyArtworkDetail';
+import ArtworkDetail from '../ArtworkDetail/ArtworkDetail';
+import DiscoverUserPage from '../DiscoverUserPage/DiscoverUserPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -118,21 +120,25 @@ function App() {
           <ProtectedRoute exact path="/discover">
             <DiscoverGalleryPage />
           </ProtectedRoute>
+          
+          <ProtectedRoute exact path="/discover/:id">
+            <DiscoverUserPage />
+          </ProtectedRoute>
 
           <ProtectedRoute exact path="/mygallery">
             <MyGalleryPage />
-          </ProtectedRoute>
-
-          <ProtectedRoute exact path="/discover">
-            <DiscoverGalleryPage />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/edit/:id">
             <EditArtworkPage />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/details/:id">
+          <ProtectedRoute exact path="/mydetails/:id">
             <MyArtworkDetail />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/details/:id">
+            <ArtworkDetail />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}

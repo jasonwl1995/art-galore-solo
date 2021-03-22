@@ -50,7 +50,7 @@ function MyGalleryPage() {
                         <>
                         <div className="artworkdiv">
                           <img src={artwork.image} height="350px" weight = "250px "alt={artwork.description} 
-                          onClick={() => history.push(`/details/${artwork.id}`)}/>
+                          onClick={() => history.push(`/mydetails/${artwork.id}`)}/>
                           
                         </div>
                         <br></br>

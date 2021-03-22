@@ -7,18 +7,15 @@ import './GalleryPage.css';
 function DiscoverUserPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const params = useParams();
+  // const params = useParams();
 
   const artworkList = useSelector(store => store.artwork);
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
     dispatch({
-      type: 'DISCOVER_USER_ARTWORK',
-      payload: { 
-        userid: user.id,
-        discover_userid: params.id,
-      }
+      type: 'FETCH_USER_ARTWORK',
+      payload: { userid: user.id }
     });
   }, []);
 
@@ -69,6 +66,10 @@ return(
                   </div>
                   <br></br>
                   <div>
+
+                  <button onClick={() => history.push(`/details/${artwork.id}`)}>
+                    Details
+                  </button>
                     {/* <div>
                         Likes: {artwork.favorite}
                     </div>
