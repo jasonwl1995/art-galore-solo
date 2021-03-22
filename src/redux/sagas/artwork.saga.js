@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 function* artworkSaga() {
-  // yield takeLatest('FETCH_ARTWORK', fetchArtwork);
+  yield takeLatest('FETCH_USER_ARTWORK', fetchUserArtwork);
   yield takeLatest('DISCOVER_GALLERY_ARTWORK', discoverGalleryArtwork);   //discover gallery
 
   yield takeLatest('FETCH_DETAIL', fetchArtworkDetails);
@@ -14,19 +14,21 @@ function* artworkSaga() {
 //how to use a global flag??
 const DEBUG=true;
 
-// //   Get all artwork from database
-// function* fetchArtwork(action){
-//   try{
-//     const artwork = yield axios.get('/api/artwork');
-//     console.log('GET_ARTWORK', artwork.data);
-//     yield put({
-//       type: 'SET_ARTWORK',
-//       payload: artwork.data,
-//     });
-//   } catch(err) {
-//     console.log('get detail error', err);
-//   }
-// }
+//   Get all artwork from database
+function* fetchUserArtwork(action) {
+  try {
+    // need for credentials ???
+    const response = yield axios.get(`/api/artwork/${action.payload.userid}`);
+    //if success, set the data to store
+    if (response.status === 200)
+    {
+      yield put({ type: 'SET_ARTWORK', payload: response.data});
+    }
+
+  } catch (error) {
+    console.log('fetch artwork request failed', error);
+  }
+}
 
 // DISCOVER HOME PAGE
 function* discoverGalleryArtwork(action) {

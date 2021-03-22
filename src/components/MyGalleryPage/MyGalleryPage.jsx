@@ -8,12 +8,13 @@ function MyGalleryPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const artwork = useSelector(store => store.artwork);
+  const artworkList = useSelector(store => store.artwork);
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_ARTWORK'
+      type: 'FETCH_USER_ARTWORK',
+      payload: { userid: user.id }
     });
   }, []);
 
@@ -31,18 +32,42 @@ function MyGalleryPage() {
         <h1>My Gallery</h1>
         <h2>{user.intro}</h2>
         <section className="artwork">
-            {artwork.map((artwork) => {
-                return (
-                  <div key={artwork.id} >
-                    <img src={artwork.poster} alt={artwork.title} 
-                    onClick={() => history.push(`/details/${artwork.id}`)}/>
-                    <h3>{artwork.title}</h3>
-                    {/* <button onClick = {() => likeArtwork{artwork.id}}>
-                      Like
-                    </button> */}
-                  </div>
-                );
-            })}
+            {
+              //test
+              (artworkList && artworkList.length)?
+              <>
+                {
+                    artworkList.map((artwork) => {
+                      return (
+                        <>
+                        <div className="artworkdiv">
+                          <img src={artwork.image} height="350px" weight = "250px "alt={artwork.description} 
+                          onClick={() => history.push(`/details/${artwork.id}`)}/>
+                          
+                        </div>
+                        <br></br>
+                        <div>
+                          <h3>{artwork.title} : {artwork.theme} by {artwork.username} </h3>
+                        </div>
+                        <br></br>
+                        <div>
+                          <button onClick = { (evt) => {editArtwork(artwork.id)}}>
+                            Edit
+                          </button>
+                          <button onClick = { (evt) => {deleteArtwork(artwork.id)}}>
+                            Delete
+                          </button>
+                        </div>
+                      </>
+                      );
+                  })  
+                }                  
+              </>
+              :
+              <>
+                <h3>You Have Not Added Any Artworks Yet!</h3>
+              </>
+           }
         </section>
       </main>
     </div>
