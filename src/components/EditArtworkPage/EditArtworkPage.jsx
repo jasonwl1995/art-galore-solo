@@ -160,7 +160,7 @@ console.log('artworkID', artworkId);
               {/* <input type="submit" value="Save" /> */}
             </td>
             <td>
-              <button onClick = {() => history.push('/details')}>
+              <button onClick = {() => history.push(`/details/${artworkId}`)}>
                 Cancel
               </button>
             </td>

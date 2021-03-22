@@ -6,76 +6,69 @@ function MyArtworkDetail() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
+  const artworkId = params;
 
   // data from redux
-  const artwork = useSelector(store => store.artwork);
-
+  const detail = useSelector(store => store.detail);
+  const user = useSelector((store) => store.user);
   // on load, get(fetch)
   // Display details on the page
   useEffect(() => {
     dispatch({
-      type: 'FETCH_DETAIL',
-      payload: params,
+      type: 'FETCH_ARTWORK_DETAIL',
+      payload: {
+        artworkId: artworkId.id
+        }
     });
   }, []);
 
-  const editArtwork = () => {
-
-    // Store the movie to be edited in the <EditArtwork /> component in the Redux store
-    dispatch({
-      type: 'EDIT_ARTWORK',
-      payload: {
-      artworkId,
-      userId,
-      }
-    });
-
-    // Navigate to `/editArtwork` page
-    history.push('/editArtwork');
+  const editArtwork = (artworkid) => {
+    history.push(`/edit/${artworkid}`);
   };
 
-  const handleDelete = () => {
+  const deleteArtwork = (artworkid) => {
+
     dispatch({
       type: 'DELETE_ARTWORK',
-      payload: likeArtwork.id,
+      payload: {
+        artworkid: artworkid,
+        userid: user.id,
+      }
     });
-  };
+    history.push('/mygallery');
+ };
 
-  console.log( "artwork", artwork);
+  console.log( "detail", detail);
   return (
     <div>
-      <img src={artwork.image} alt={artwork.title} />
+      <img src={detail.image} alt={detail.title} />
 
       <section>
-        <h2>{artwork.title}</h2>
+        <h2>{detail.title}</h2>
       </section>
 
       <section>
-        <h3>{artwork.date}</h3>
+        <h3>Date created: {detail.date}</h3>
       </section>
 
       <section>
-        <p>{artwork.description}</p>
+        <p>Category: {detail.theme}</p>
       </section>
+
+      <section>
+        <p>Description:</p>
+        <p>{detail.description}</p>
+      </section>
+
       
-      {/* {details.array_agg ? (
-      <span>
-        {details.array_agg.map((genre) => {
-          return (
-            <p>{genre}</p>
-          );
-        })}
-      </span>
-      ) : (
-        <div></div>
-      )} */}
-      <button className="edit-button" onClick={editArtwork}>
-        Edit
-      </button>
-
-      <button className="delete-button" onClick={deleteArtwork}>
-        Delete
-      </button>
+      <div>
+        <button onClick = { (evt) => {editArtwork(detail.id)}}>
+          Edit
+        </button>
+        <button onClick = { (evt) => {deleteArtwork(detail.id)}}>
+          Delete
+        </button>
+      </div>
 
       <button onClick = {() => history.push('/mygallery')}>
         Back to Gallery
