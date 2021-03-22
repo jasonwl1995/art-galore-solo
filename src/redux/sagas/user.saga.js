@@ -24,8 +24,20 @@ function* fetchUser() {
   }
 }
 
+// worker Saga: will be fired on "FETCH_USER" actions
+function* fetchUserList() {
+  try {
+    const response = yield axios.get('/api/user/list');
+
+    yield put({ type: 'SET_USER_LIST', payload: response.data });
+  } catch (error) {
+    console.log('UserList get request failed', error);
+  }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
+  yield takeLatest('FETCH_USER_LIST', fetchUserList);
 }
 
 export default userSaga;

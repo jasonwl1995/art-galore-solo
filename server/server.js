@@ -11,6 +11,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const artworkRouter = require('./routes/artwork.router');
 const categoryRouter = require('./routes/category.router');
+const discoveruserRouter = require('./routes/discoveruser.router');
 
 // TODO AWS const
 const UploaderS3Router = require('react-dropzone-s3-uploader/s3router')
@@ -43,6 +44,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/artwork', artworkRouter);
 app.use('/api/category', categoryRouter);
+app.use('/api/discoveruser', discoveruserRouter);
 
 // Serve static files
 app.use(express.static('build'));

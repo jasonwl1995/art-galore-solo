@@ -9,8 +9,8 @@ function EditArtworkPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
-  const artworkid = params;
-
+  const artworkId = params;
+console.log('artworkID', artworkId);
   /* Grab data from Redux store */
   const detail = useSelector((store) => store.detail);
   console.log('details', detail);
@@ -30,10 +30,10 @@ function EditArtworkPage() {
     useEffect(() => {
     dispatch({
       type: 'FETCH_ARTWORK_DETAIL',
-      payload: {artworkid: params.id},
+      payload: {artworkId: artworkId.id}
     });
   }, []);
-
+  console.log('details', detail);
 
   const editArtwork = (event) => {
     // Keep page from refreshing on form submission
@@ -43,7 +43,7 @@ function EditArtworkPage() {
     dispatch({
       type: 'EDIT_ARTWORK',
       payload: {
-        id: artwork.id,
+        id: detail.id,
         title: editTitle,
         // image: artworkImage,
         date: editDate,
@@ -77,7 +77,7 @@ function EditArtworkPage() {
               type="text"
               placeholder="Artwork Title"
               value={editTitle}
-              onChange={(event) => setEditTitle(evt.target.value)}
+              onChange={(event) => setEditTitle(event.target.value)}
               />
             </td>
           </tr>
@@ -101,7 +101,7 @@ function EditArtworkPage() {
               type="text"
               placeholder="Artwork Image URL"
               value={editImage}
-              onChange={(evt) => setEditImage(evt.target.value)}
+              onChange={(event) => setEditImage(event.target.value)}
               />
             </td>
           </tr>
@@ -116,7 +116,7 @@ function EditArtworkPage() {
               type="text"
               placeholder="Artwork Date"
               value={editDate}
-              onChange={(event) => setEditDate(evt.target.value)}
+              onChange={(event) => setEditDate(event.target.value)}
               />
             </td>
           </tr>
@@ -130,7 +130,7 @@ function EditArtworkPage() {
               name="artworkDescription"
               placeholder="Artwork Description:"
               value={editDescription}
-              onChange={(event) => setEditDescription(evt.target.value)}
+              onChange={(event) => setEditDescription(event.target.value)}
               />
             </td>
           </tr>

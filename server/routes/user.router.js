@@ -47,4 +47,19 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+//retrieve user list
+router.get('/list', (req, res) => {
+
+const queryText = `SELECT id, username, intro, address, city, state, zip FROM "user" ORDER BY username ASC`;
+pool
+  .query(queryText)
+  .then((result) => {
+      res.send(result.rows);
+  })
+  .catch((err) => {
+          console.log('user list retrieving failed: ', err);
+    res.sendStatus(500);
+  });
+});
+
 module.exports = router;

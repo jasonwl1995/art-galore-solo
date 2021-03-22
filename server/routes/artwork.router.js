@@ -97,7 +97,6 @@ router.put('/unlike', (req, res) => {
 
   //this is to get artwork detail
 router.get('/detail/:id', (req, res) => {
-  
     let artworkID = req.params.id;
     //let queryText = `select * from artwork order by user_id asc`;
     //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
@@ -158,12 +157,12 @@ router.delete('/:id', (req, res) => {
    
 //this is to handle put request
 router.put('/', (req, res) => {
-  
+  console.log(req.body);
     let newData = req.body;
     //console.log('artwork to update:', newData);
-    const queryText = `UPDATE artwork SET title = $1, date = $2, image = $3, description = $4, category_id = $5 WHERE id = $6 `;
+    const queryText = `UPDATE artwork SET title = $1, date = $2, image = $3, description = $4 WHERE id = $5`;
     pool
-      .query(queryText, [newData.title, newData.date, newData.image, newData.description, newData.category_id, newData.artworkid])
+      .query(queryText, [newData.title, newData.date, newData.image, newData.description, newData.artworkId])
       .then ((result) => {
           res.sendStatus(200);
       })

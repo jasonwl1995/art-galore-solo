@@ -4,8 +4,9 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* artworkSaga() {
   yield takeLatest('FETCH_USER_ARTWORK', fetchUserArtwork);
   yield takeLatest('DISCOVER_GALLERY_ARTWORK', discoverGalleryArtwork);   //discover gallery
+  yield takeLatest('DISCOVER_USER_ARTWORK', discoverUserArtwork); 
 
-  yield takeLatest('FETCH_ARTWORK_DETAIL', fetchArtworkDetail);
+  yield takeLatest('FETCH_ARTWORK_DETAIL', fetchArtworkDetails);
 
   yield takeLatest('ADD_ARTWORK', addArtwork);
   yield takeLatest('EDIT_ARTWORK', editArtwork);
@@ -46,14 +47,32 @@ function* discoverGalleryArtwork(action) {
   }
 }
 
+
+// Takes to gallery by user ID
+function* discoverUserArtwork(action) {
+  const data = action.payload;
+  let queryURL = `/api/discoveruser?userid=${action.payload.userid}&discover_userid=${data.discover_userid}`;
+
+  try {
+    const response = yield axios.get(queryURL);
+    //if success, set the data to store
+    if (response.status === 200)
+    {
+      yield put({ type: 'SET_ARTWORK', payload: response.data});
+    }
+
+  } catch (error) {
+    console.log('discoverUserArtwork request failed', error);
+  }
+}
+
 // Get artwork detail from database
 function* fetchArtworkDetails(action){
-  console.log('fetch details', action.payload);
   try{
-    const details = yield axios.get(`/api/artwork/detail/${action.payload.artworkid}`);
+    const details = yield axios.get(`/api/artwork/detail/${action.payload.artworkId}`);
     console.log('GET ARTWORK details', details.data);
     yield put({
-      type: 'SET_DETAILS',
+      type: 'SET_DETAIL',
       payload: details.data,
     });
   } catch(err) {
@@ -103,11 +122,9 @@ function* addArtwork(action) {
 function* editArtwork(action) {
   try {
     yield axios.put('/api/artwork/', action.payload);
-    yield put({
-      type:'FETCH_DETAIL',
-      payload: artwork.id
-      })
-  } catch (error) {
+    console.log("update success");
+    
+  } catch (err) {
     console.log(' SAGA ERROR PUT', err);
   }
 }
