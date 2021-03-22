@@ -14,7 +14,7 @@ function MyArtworkDetail() {
   // Display details on the page
   useEffect(() => {
     dispatch({
-      type: 'GET_ARTWORK',
+      type: 'FETCH_DETAIL',
       payload: params,
     });
   }, []);
@@ -32,6 +32,13 @@ function MyArtworkDetail() {
 
     // Navigate to `/editArtwork` page
     history.push('/editArtwork');
+  };
+
+  const handleDelete = () => {
+    dispatch({
+      type: 'DELETE_ARTWORK',
+      payload: likeArtwork.id,
+    });
   };
 
   console.log( "artwork", artwork);
@@ -64,6 +71,10 @@ function MyArtworkDetail() {
       )} */}
       <button className="edit-button" onClick={editArtwork}>
         Edit
+      </button>
+
+      <button className="delete-button" onClick={deleteArtwork}>
+        Delete
       </button>
 
       <button onClick = {() => history.push('/mygallery')}>

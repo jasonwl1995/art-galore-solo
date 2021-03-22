@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { generatePath, useHistory, Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
+import ImageUpload from '../ImageUpload/ImageUpload';
 
 function AddArtworkForm() {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   //Global Store
   // (STRETCH TO ADD CATEGORIES)
-  // const genres = useSelector(store => store.genres);
-
+  const category = useSelector(store => store.category);
+  const user = useSelector(store => store.user);
   //Local Store
   const [artworkTitle, setArtworkTitle] = useState('');
   const [artworkImage, setArtworkImage] = useState('');
   const [artworkDate, setArtworkDate] = useState('');
   const [artworkDescription, setArtworkDescription] = useState('');
-
+  const [artworkCategory, setArtworkCategory] = useState('');
+  
   // (STRETCH TO ADD CATEGORIES)
   // useEffect(() => {
   //   dispatch({
-  //     type: 'FETCH_CATEGORY'
+  //     type: 'FETCH_CATEGORY_LIST'
   //   });
   // }, []);
 
@@ -30,19 +31,19 @@ function AddArtworkForm() {
     dispatch({
       type: 'ADD_ARTWORK',
       payload: {
+        id: user.id,
         title: artworkTitle,
-        // image: artworkImage,
         date: artworkDate,
         image: artworkImage,
         description: artworkDescription,
-        // category_id: artworkCategory,
+        category_id: artworkCategory,
       }
     })
     setArtworkTitle('');
     setArtworkDate('');
     setArtworkImage('');
     setArtworkDescription('');
-//    history.push('/');
+    setArtworkCategory('');
   };
 
   return (
@@ -61,25 +62,34 @@ function AddArtworkForm() {
               placeholder="Artwork Title"
               value={artworkTitle}
               onChange={(evt) => setArtworkTitle(evt.target.value)}
+              required
               />
             </td>
           </tr>
 
-          {/* // ADD s3 IMAGE CALL */}
           {/* <tr>
             <td>
-              <label htmlFor="artworkImage">Movie Poster URL: </label>
+            <label htmlFor="artworkImage">Artwork Image: </label>
+            </td>
+            <td>
+              <ImageUpload />
+            </td>
+          </tr> */}
+
+          <tr>
+            <td>
+              <label htmlFor="artworkImage">Artwork Thumbnail URL: </label>
             </td>
             <td>
               <input
-              name="moviePoster"
+              name="artworkImage"
               type="text"
-              placeholder="Movie Poster URL"
-              value={moviePoster}
-              onChange={(evt) => setMoviePoster(evt.target.value)}
+              placeholder="Artwork Image URL"
+              value={artworkImage}
+              onChange={(evt) => setArtworkImage(evt.target.value)}
               />
             </td>
-          </tr> */}
+          </tr>
 
           <tr>
             <td>
@@ -92,6 +102,7 @@ function AddArtworkForm() {
               placeholder="Date Created"
               value={artworkDate}
               onChange={(evt) => setArtworkDate(evt.target.value)}
+              required
               />
             </td>
           </tr>
@@ -106,30 +117,35 @@ function AddArtworkForm() {
               placeholder="Artwork Description:"
               value={artworkDescription}
               onChange={(evt) => setArtworkDescription(evt.target.value)}
+              required
               />
             </td>
           </tr>
 
           {/* STRETCH ARTWORK CATEGORY */}
-          {/* <tr>
+          <tr>
             <td>
-              <label htmlFor="movieGenre">Select Genre: </label>
+              <label htmlFor="artworkCategory">Select Category: </label>
             </td>
             <td>
               <select 
-                name="movieGenre" 
-                placeholder="--- Genres ---"
-                value={movieGenre}
-                onChange={(evt) => setMovieGenre(evt.target.value)}
-              >
-                {genres.map((genre, i) => {
-                  return (
-                    <option key={i} value={genre.id}>{genre.name}</option>
-                  )
-                })};
+                name="artworkCategory" 
+                placeholder="--- Categories ---"
+                value={artworkCategory}
+                onChange={(evt) => setArtworkCategory(evt.target.value)}
+                required
+                >
+                <option key="-1" value="">--- Select A Category ---</option>
+                {
+                  category && category.length && category.map((cat, i) => {
+                    return (
+                        <option key={i} value={cat.id}>{cat.theme}</option>
+                      )
+                    })
+                }
               </select>
             </td>
-          </tr> */}
+          </tr>
 
           <tr>
             <td>

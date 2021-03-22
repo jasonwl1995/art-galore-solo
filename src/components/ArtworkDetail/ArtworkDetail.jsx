@@ -9,13 +9,14 @@ function ArtworkDetail() {
 
   // data from redux
   const artwork = useSelector(store => store.artwork);
+  const user = useSelector((store) => store.user);
 
   // on load, get(fetch)
   // Display details on the page
   console.log("params", params);
   useEffect(() => {
     dispatch({
-      type: 'GET_ARTWORK',
+      type: 'FETCH_DETAIL',
       payload: params,
     });
   }, []);
@@ -39,6 +40,7 @@ function ArtworkDetail() {
       <section>
         <Link>
           <h3>{artwork.user}</h3>
+          <h3>{user.username}</h3>
         </Link>
         <h3>{artwork.date}</h3>
       </section>

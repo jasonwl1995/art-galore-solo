@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
+import ImageUpload from '../ImageUpload/ImageUpload';
 
 
 function EditArtworkPage() {
@@ -73,21 +74,14 @@ function EditArtworkPage() {
             </td>
           </tr>
 
-          {/* // ADD s3 IMAGE CALL */}
-          {/* <tr>
+          <tr>
             <td>
-              <label htmlFor="moviePoster">Movie Poster URL: </label>
+            <label htmlFor="artworkImage">Artwork Image: </label>
             </td>
             <td>
-              <input
-              name="moviePoster"
-              type="text"
-              placeholder="Movie Poster URL"
-              value={moviePoster}
-              onChange={(evt) => setMoviePoster(evt.target.value)}
-              />
+              <ImageUpload />
             </td>
-          </tr> */}
+          </tr>
 
           <tr>
             <td>

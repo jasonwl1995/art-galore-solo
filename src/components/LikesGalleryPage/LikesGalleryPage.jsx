@@ -9,7 +9,6 @@ function MyGalleryPage() {
   const history = useHistory();
 
   const artwork = useSelector(store => store.artwork);
-  const user = useSelector((store) => store.user);
 
   useEffect(() => {
     dispatch({
@@ -17,19 +16,17 @@ function MyGalleryPage() {
     });
   }, []);
 
-  // const likeArtwork = ({artwork.id}) => {
-  //   dispatch({
-  //     type: 'ADD_LIKE',
-  //     payload: { artwork.id }
-  //   });
-  // };
-  
+  const handleDelete = () => {
+    dispatch({
+      type: 'DELETE_LIKE',
+      payload: likeArtwork.id,
+    });
+  };
 
   return(
     <div>
       <main>
-        <h1>My Gallery</h1>
-        <h2>{user.intro}</h2>
+        <h1>MY GALLERY</h1>
         <section className="artwork">
             {artwork.map((artwork) => {
                 return (
@@ -37,9 +34,9 @@ function MyGalleryPage() {
                     <img src={artwork.poster} alt={artwork.title} 
                     onClick={() => history.push(`/details/${artwork.id}`)}/>
                     <h3>{artwork.title}</h3>
-                    {/* <button onClick = {() => likeArtwork{artwork.id}}>
-                      Like
-                    </button> */}
+                    <button id="deleteBtn" onClick={handleDelete}>
+                      Delete
+                    </button>
                   </div>
                 );
             })}

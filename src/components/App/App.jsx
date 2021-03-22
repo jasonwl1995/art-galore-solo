@@ -21,12 +21,20 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
+import DiscoverGalleryPage from '../DiscoverGalleryPage/DiscoverGalleryPage';
+import MyGalleryPage from '../MyGalleryPage/MyGalleryPage';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+
+    //fetch categories and save them in store
+    //console.log('fetch categories and save them in store');
+    // --move this to AddArtworkForm ???
+    dispatch({ type: 'FETCH_CATEGORY_LIST' });
+    
   }, [dispatch]);
 
   return (
@@ -102,6 +110,24 @@ function App() {
           >
             <LandingPage />
           </ProtectedRoute>
+
+          {/* Added routes */}
+
+          <ProtectedRoute exact path="/discover">
+            <DiscoverGalleryPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/mygallery">
+            <MyGalleryPage />
+          </ProtectedRoute>
+
+          {/* <ProtectedRoute exact path="/discover">
+            <DiscoverGalleryPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/discover">
+            <DiscoverGalleryPage />
+          </ProtectedRoute> */}
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

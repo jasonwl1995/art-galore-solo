@@ -34,15 +34,19 @@ function Nav() {
             <Link className="navLink" to="/discover">
               Discover
             </Link>
+
             {/* <Link className="navLink" to="/user">
               Profile
             </Link> */}
+
             <Link className="navLink" to="/mygallery">
               My Gallery
             </Link>
+
             <Link className="navLink" to="/likes">
               Likes
             </Link>
+
             <LogOutButton className="navLink" to="/home"/>
           </>
         )}

@@ -9,6 +9,7 @@ function DiscoverUserPage() {
   const history = useHistory();
 
   const artwork = useSelector(store => store.artwork);
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
     dispatch({
@@ -26,7 +27,8 @@ function DiscoverUserPage() {
   return(
     <div>
       <main>
-        <h1>ART GALORE</h1>
+        <h1>{user.username}'s Gallery</h1>
+        <h2>{user.intro}</h2>
         <section className="artwork">
             {artwork.map((artwork) => {
                 return (

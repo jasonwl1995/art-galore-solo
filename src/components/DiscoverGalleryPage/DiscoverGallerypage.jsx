@@ -8,11 +8,13 @@ function DiscoverGalleryPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const artwork = useSelector(store => store.artwork);
+  const artworkList = useSelector(store => store.artwork);
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_ARTWORK'
+      type: 'DISCOVER_GALLERY_ARTWORK',
+      payload: {userid: user.id},
     });
   }, []);
 
@@ -26,20 +28,55 @@ function DiscoverGalleryPage() {
   return(
     <div>
       <main>
-        <h1>ART GALORE</h1>
+        <h1>Art Galore</h1>
+        <h2>Browse through some artworks from other artists!</h2>
         <section className="artwork">
-            {artwork.map((artwork) => {
-                return (
-                  <div key={artwork.id} >
-                    <img src={artwork.poster} alt={artwork.title} 
-                    onClick={() => history.push(`/details/${artwork.id}`)}/>
-                    <h3>{artwork.title}</h3>
-                    {/* <button onClick = {() => likeArtwork{artwork.id}}>
-                      Like
-                    </button> */}
-                  </div>
-                );
-            })}
+            {
+              //making sure artworkList is populated before rendering
+              artworkList && artworkList.length && 
+              artworkList.map((artwork, i) => {
+                  return (
+                    <>
+                    <div className="artworkdiv" key = {i}>
+                      <img src={artwork.image} height="350px" weight = "250px " alt={artwork.username} 
+                      onClick={() => history.push(`/details/${artwork.id}`)}/>
+                      
+                    </div>
+                    <br></br>
+                    <div>
+                      <h3>{artwork.title}</h3>
+                    </div>
+                    <br></br>
+
+                    <button onClick={() => history.push(`/details/${artwork.id}`)}>
+                      Details
+                    </button>
+
+                    {/* <div>
+
+                      <div>
+                          Likes: {artwork.favorite}
+                      </div>
+
+                            (artwork.favorite > 0)? 
+                            <>
+                             <button onClick = { (evt) => {unlikeArtwork(artwork.id)}}>
+                              UnLike
+                            </button>
+                            </> 
+                            : 
+                            <>
+                             <button onClick = { (evt) => {likeArtwork(artwork.id)}}>
+                              Like
+                            </button>
+                            </>
+                      }    
+                    </div> */}
+
+                  </>
+                  );
+              })              
+            }
         </section>
       </main>
     </div>
