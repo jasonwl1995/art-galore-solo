@@ -11,6 +11,8 @@ function ArtworkDetail() {
   // data from redux
   const detail = useSelector(store => store.detail);
   const user = useSelector((store) => store.user);
+  const userList = useSelector(store => store.userList);
+  // const userList = useSelector(store => store.userList);
 
   // on load, get(fetch)
   // Display details on the page
@@ -24,15 +26,24 @@ function ArtworkDetail() {
     });
   }, []);
 
-  // const userChange = (newUser) => {
+  const clickHandler = (evt) => {
+    //go to discover user page
 
-  //   dispatch({
-  //     type: 'DISCOVER_USER_ARTWORK',
-  //     payload: {
-  //       userid: user.id,
-  //       discover_userid: newUser,
-  //     }
-  //   });
+    let newUser = evt.target.value;
+    userChange(newUser);
+
+  };
+  const userChange = (newUser) => {
+
+    dispatch({
+      type: 'DISCOVER_USER_ARTWORK',
+      payload: {
+        userid: user.id,
+        discover_userid: newUser,
+      }
+    });
+    history.push(`/discoveruser/${detail.user_id}`);
+  }
   
   // const likeArtwork = ({artwork.id}) => {
   //   dispatch({
@@ -57,7 +68,8 @@ function ArtworkDetail() {
           {/* <Link>
             {detail.username}
           </Link> */}
-        <button onClick = {() => history.push(`/discover/${detail.user_id}`)}>
+        {/* <button onClick = {() => history.push(`/discover/${detail.user_id}`)}> */}
+        <button onClick = {clickHandler}>
           {detail.username}
         </button>
         </h3>

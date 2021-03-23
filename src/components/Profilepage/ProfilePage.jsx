@@ -9,9 +9,8 @@ import EditArtworkPage from '../EditArtworkPage/EditArtworkPage';
 // import UserDetail from '../UserDetail/UserDetail';
 
 function ProfilePage() {
-  // const dispatch = useDispatch();
-  // const history = useHistory();
-  // const params = useParams();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
@@ -25,16 +24,9 @@ function ProfilePage() {
   //   });
   // }, []);
 
-  const editUser = () => {
-
-    // Store the movie to be edited in the <EditUser /> component in the Redux store
-    dispatch({
-      type: 'EDIT_USER',
-      payload: userId,
-    });
-
+  const editUser = (userId) => {
     // Navigate to `/editUser` page
-    history.push('/edituser');
+    history.push(`/edituser/${user.id}`);
   };
 
   console.log( "user", user);
@@ -59,7 +51,7 @@ function ProfilePage() {
       <LogOutButton className="btn" />
       {/* <UserDetail /> */}
       <AddArtworkForm />
-      <EditArtworkPage />
+
     </div>
   );
 }

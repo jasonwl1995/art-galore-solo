@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import DropdownNav from '../Nav/DropdownNav';
 
 import './GalleryPage.css';
 
@@ -30,6 +31,14 @@ function DiscoverGalleryPage() {
       <main>
         <h1>Art Galore</h1>
         <h2>Browse through some artworks from other artists!</h2>
+        {user.id && (
+          <>
+          <div>
+            <p>Search By Username:</p>
+            <DropdownNav />
+          </div>
+          </>
+        )}
         <section className="artwork">
             {
               //making sure artworkList is populated before rendering

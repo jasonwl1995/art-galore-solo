@@ -1,12 +1,14 @@
 /* Import Libraries */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
-
+import { useHistory, Link, useParams } from 'react-router-dom';
+import ImageUpload from '../ImageUpload/ImageUpload';
 
 function EditUserPage() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const params = useParams();
+  const userId = params;
 
   /* Grab data from Redux store */
   const user = useSelector((store) => store.user);
@@ -18,10 +20,16 @@ function EditUserPage() {
   const [editIntro, setEditIntro] = useState(user.intro);
   // const [editAddress, setEditAddress] = useState(user.address);
 
-  const [editUsername, setEditUsername] = useState('');
-  const [editPFP, setEditPFP] = useState('');
-  const [editIntro, setEditIntro] = useState('');
+  // const [editUsername, setEditUsername] = useState('');
+  // const [editPFP, setEditPFP] = useState('');
+  // const [editIntro, setEditIntro] = useState('');
   // const [editAddress, setEditAddress] = useState('');
+    useEffect(() => {
+    dispatch({
+      type: 'FETCH_USER_DETAIL',
+      payload: {userId: userId.id}
+    });
+  }, []);
 
 
 
@@ -37,22 +45,18 @@ function EditUserPage() {
         username: editUsername,
         pfp: editPFP,
         intro: editIntro,
-        address: editAddress
+        // address: editAddress
       },
     });
 
     // Navigate to profile page
-    history.push('/');
+    history.push('/user');
   };
 
   return (
-    <section className="edit-page">
+    <section className="edit-user">
       <h2>Edit User</h2>
-      {/* <img
-        src={movie.poster}
-        alt={movie.title}
-        className="details-poster-size"
-      /> */}
+
       <form onSubmit={editUser}>
         <table>
           <tr>
@@ -65,27 +69,34 @@ function EditUserPage() {
               type="text"
               placeholder="New Username"
               value={editUsername}
-              onChange={(event) => setEditUsername(evt.target.value)}
+              onChange={(event) => setEditUsername(event.target.value)}
               />
             </td>
           </tr>
 
-          {/* // ADD s3 IMAGE CALL */}
-          {/* <tr>
+          <tr>
             <td>
-              <label htmlFor="moviePoster">Movie Poster URL: </label>
+              <label htmlFor="userPFP">Profile Picture URL: </label>
             </td>
             <td>
               <input
-              name="moviePoster"
+              name="userPFP"
               type="text"
-              placeholder="Movie Poster URL"
-              value={moviePoster}
-              onChange={(evt) => setMoviePoster(evt.target.value)}
+              placeholder="Profile Picture"
+              value={editPFP}
+              onChange={(event) => setEditPFP(event.target.value)}
               />
             </td>
-          </tr> */}
+          </tr>
 
+          <tr>
+            <td>
+            <label htmlFor="editPFP">Profile Picture: </label>
+            </td>
+            <td>
+              <ImageUpload />
+            </td>
+          </tr>
 
           <tr>
             <td>
@@ -96,7 +107,7 @@ function EditUserPage() {
               name="userIntro"
               placeholder="Introduce yourself and your work!"
               value={editIntro}
-              onChange={(event) => setEditIntro(evt.target.value)}
+              onChange={(event) => setEditIntro(event.target.value)}
               />
             </td>
           </tr>
@@ -107,7 +118,7 @@ function EditUserPage() {
               {/* <input type="submit" value="Save" /> */}
             </td>
             <td>
-              <button onClick = {() => history.push('/')}>
+              <button onClick = {() => history.push('/user')}>
                 Cancel
               </button>
             </td>

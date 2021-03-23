@@ -4,7 +4,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import img from '../images/logo.png';
 import {useSelector} from 'react-redux';
-import DropdownNav from './DropdownNav';
+// import DropdownNav from './DropdownNav';
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -56,13 +56,13 @@ function Nav() {
           About
         </Link>
 
-        {user.id && (
+        {/* {user.id && (
           <>
           <div>
             <DropdownNav />
           </div>
           </>
-        )}
+        )} */}
         
       </div>
     </div>

@@ -67,14 +67,14 @@ function AddArtworkForm() {
             </td>
           </tr>
 
-          {/* <tr>
+          <tr>
             <td>
             <label htmlFor="artworkImage">Artwork Image: </label>
             </td>
             <td>
               <ImageUpload />
             </td>
-          </tr> */}
+          </tr>
 
           <tr>
             <td>

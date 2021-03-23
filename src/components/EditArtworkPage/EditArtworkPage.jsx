@@ -82,14 +82,14 @@ console.log('artworkID', artworkId);
             </td>
           </tr>
 
-          {/* <tr>
+          <tr>
             <td>
             <label htmlFor="artworkImage">Artwork Image: </label>
             </td>
             <td>
               <ImageUpload />
             </td>
-          </tr> */}
+          </tr>
 
           <tr>
             <td>
@@ -160,7 +160,7 @@ console.log('artworkID', artworkId);
               {/* <input type="submit" value="Save" /> */}
             </td>
             <td>
-              <button onClick = {() => history.push(`/details/${artworkId}`)}>
+              <button onClick = {() => history.push(`/mydetails/${artworkId}`)}>
                 Cancel
               </button>
             </td>
