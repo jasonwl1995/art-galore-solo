@@ -21,6 +21,7 @@ function ArtworkDetail() {
     dispatch({
       type: 'FETCH_ARTWORK_DETAIL',
       payload: {
+        userId: user.id,
         artworkId: artworkId.id
         }
     });

@@ -69,7 +69,7 @@ function* discoverUserArtwork(action) {
 // Get artwork detail from database
 function* fetchArtworkDetails(action){
   try{
-    const details = yield axios.get(`/api/artwork/detail/${action.payload.artworkId}`);
+    const details = yield axios.get(`/api/artwork/${action.payload.userId}/${action.payload.artworkId}`);
     console.log('GET ARTWORK details', details.data);
     yield put({
       type: 'SET_DETAIL',

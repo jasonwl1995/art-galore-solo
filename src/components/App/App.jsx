@@ -27,7 +27,8 @@ import EditArtworkPage from '../EditArtworkPage/EditArtworkPage';
 import MyArtworkDetail from '../MyArtworkDetail/MyArtworkDetail';
 import ArtworkDetail from '../ArtworkDetail/ArtworkDetail';
 import DiscoverUserPage from '../DiscoverUserPage/DiscoverUserPage';
-import EditUserPage from '../EditUserPage/EditUserPage';
+// import EditUserPage from '../EditUserPage/EditUserPage';
+import EditUser from '../EditUser/EditUser';
 
 function App() {
   const dispatch = useDispatch();
@@ -142,8 +143,12 @@ function App() {
             <ArtworkDetail />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/edituser/:id">
+          {/* <ProtectedRoute exact path="/edituser/:id">
             <EditUserPage />
+          </ProtectedRoute> */}
+
+          <ProtectedRoute exact path="/edituser/:id">
+            <EditUser />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}

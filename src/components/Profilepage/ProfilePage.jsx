@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import AddArtworkForm from '../AddArtworkForm/AddArtworkForm';
-import EditArtworkPage from '../EditArtworkPage/EditArtworkPage';
+// import EditArtworkPage from '../EditArtworkPage/EditArtworkPage';
 // import UserDetail from '../UserDetail/UserDetail';
 
 function ProfilePage() {
@@ -17,16 +17,25 @@ function ProfilePage() {
 
   // // on load, get(fetch)
   // // Display details on the page
+
   // useEffect(() => {
-  //   dispatch({
-  //     type: 'GET_USER_DETAILS',
-  //     payload: params,
+  //     dispatch({
+  //     type: 'FETCH_USER_DETAIL',
+  //     payload: {
+  //       userId: user.id
+  //       }
   //   });
   // }, []);
 
   const editUser = (userId) => {
+      dispatch({
+      type: 'FETCH_USER_DETAIL',
+      payload: {
+        userId: user.id
+        }
+    });
     // Navigate to `/editUser` page
-    history.push(`/edituser/${user.id}`);
+    history.push(`/edituser/${userId}`);
   };
 
   console.log( "user", user);

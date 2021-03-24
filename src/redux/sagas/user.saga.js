@@ -35,10 +35,34 @@ function* fetchUserList() {
   }
 }
 
+function* fetchUserDetails(action){
+  try{
+    const details = yield axios.get(`/api/user/detail/${action.payload.userId}`);
+    console.log('GET USER details', details.data);
+    yield put({
+      type: 'SET_USER_DETAIL',
+      payload: details.data,
+    });
+  } catch(err) {
+    console.log('get detail error', err);
+  }
+}
+
+function* editUser(action) {
+  try {
+    yield axios.put('/api/user/', action.payload);
+    console.log("update user Success");
+    
+  } catch (err) {
+    console.log(' SAGA ERROR EDITUSER PUT', err);
+  }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('FETCH_USER_LIST', fetchUserList);
-  // yield takeLatest('FETCH_USER_DETAIL', fetchUserDetails);
+  yield takeLatest('FETCH_USER_DETAIL', fetchUserDetails);
+  yield takeLatest('EDIT_USER', editUser);
 }
 
 export default userSaga;

@@ -13,6 +13,7 @@ function EditArtworkPage() {
 console.log('artworkID', artworkId);
   /* Grab data from Redux store */
   const detail = useSelector((store) => store.detail);
+  const user = useSelector((store) => store.user);
   console.log('details', detail);
   // const category = useSelector((store) => store.category);
 
@@ -30,7 +31,9 @@ console.log('artworkID', artworkId);
     useEffect(() => {
     dispatch({
       type: 'FETCH_ARTWORK_DETAIL',
-      payload: {artworkId: artworkId.id}
+      payload: {
+        userId: user.id,
+        artworkId: artworkId.id}
     });
   }, []);
   console.log('details', detail);
@@ -52,7 +55,7 @@ console.log('artworkID', artworkId);
         // category_id: editCategory,
       },
     });
-
+    history.push(`/mydetails/${artworkId.id}`);
     // Navigate to detail page
     // history.push('/details');
   };
@@ -160,7 +163,7 @@ console.log('artworkID', artworkId);
               {/* <input type="submit" value="Save" /> */}
             </td>
             <td>
-              <button onClick = {() => history.push(`/mydetails/${artworkId}`)}>
+              <button onClick = {() => history.push(`/mydetails/${artworkId.id}`)}>
                 Cancel
               </button>
             </td>

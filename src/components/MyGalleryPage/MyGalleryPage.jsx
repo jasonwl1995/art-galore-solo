@@ -38,7 +38,7 @@ function MyGalleryPage() {
     <div>
       <main>
         <h1>My Gallery</h1>
-        <h2>{user.intro}</h2>
+        <p>{user.intro}</p>
         <section className="artwork">
             {
               //test

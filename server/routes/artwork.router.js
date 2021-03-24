@@ -96,16 +96,17 @@ router.put('/unlike', (req, res) => {
 
 
   //this is to get artwork detail
-router.get('/detail/:id', (req, res) => {
-    let artworkID = req.params.id;
+router.get('/:userid/:artworkid', (req, res) => {
+    const artworkID = req.params.artworkid;
+    const userID = req.params.userid;
     //let queryText = `select * from artwork order by user_id asc`;
     //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
     const queryText = `SELECT art.*, cat.theme, usr.username, 
-                      (SELECT count(1) FROM like_log ll WHERE ll.user_id = usr.id AND ll.artwork_id = art.id) AS favorite
-                      FROM artwork art, category cat, "user" usr WHERE art.category_id = cat.id AND art.user_id = usr.id AND art.id = $1 `;
+                      (SELECT count(1) FROM like_log ll WHERE ll.user_id = $1 AND ll.artwork_id = art.id) AS favorite
+                      FROM artwork art, category cat, "user" usr WHERE art.category_id = cat.id AND art.user_id = usr.id AND art.id = $2`;
   
     pool
-      .query(queryText, [artworkID])
+      .query(queryText, [userID, artworkID])
       .then((result) => {
           //if (process.env.DEBUG) 
           //    console.log('artwork list is:', result.rows);
@@ -119,6 +120,8 @@ router.get('/detail/:id', (req, res) => {
   });
 
 //this is to get artwork detail
+
+
 router.delete('/:id', (req, res) => {
   
     let artworkID = req.params.id;
@@ -162,7 +165,7 @@ router.put('/', (req, res) => {
     //console.log('artwork to update:', newData);
     const queryText = `UPDATE artwork SET title = $1, date = $2, image = $3, description = $4 WHERE id = $5`;
     pool
-      .query(queryText, [newData.title, newData.date, newData.image, newData.description, newData.artworkId])
+      .query(queryText, [newData.title, newData.date, newData.image, newData.description, newData.id])
       .then ((result) => {
           res.sendStatus(200);
       })

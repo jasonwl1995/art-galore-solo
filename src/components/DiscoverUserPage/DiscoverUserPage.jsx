@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import './GalleryPage.css';
 
 function DiscoverUserPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const params = useParams();
+  const params = useParams();
+  const disUserId = params
 
   const artworkList = useSelector(store => store.artwork);
   const user = useSelector((store) => store.user);
@@ -15,9 +16,10 @@ function DiscoverUserPage() {
   useEffect(() => {
     dispatch({
       type: 'FETCH_USER_ARTWORK',
-      payload: { userid: user.id }
+      payload: { userid: disUserId.id }
     });
   }, []);
+
 
 //   const likeArtwork = (artworkid) => {
 //     dispatch({
@@ -46,8 +48,10 @@ function DiscoverUserPage() {
 return(
   <div>
     <main>
-      <h1>Art Galore</h1>
-      <h2>Browse through some artworks from other artists!</h2>
+      <h1>{artworkList && artworkList.length &&
+      artworkList[0].username}'s Gallery!</h1>
+      <h2>{artworkList && artworkList.length &&
+      artworkList[0].intro}</h2>
       <section className="artwork">
           {
             //making sure artworkList is populated before rendering

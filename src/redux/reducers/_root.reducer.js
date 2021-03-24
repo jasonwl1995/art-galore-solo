@@ -6,6 +6,7 @@ import detail from './detail.reducer';
 import category from './category.reducer';
 import userList from './userlist.reducer';
 
+
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga

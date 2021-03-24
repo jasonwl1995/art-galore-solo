@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link, useParams } from 'react-router-dom';
 // import ImageUpload from '../ImageUpload/ImageUpload';
 
-function EditUserPage() {
+function EditUser() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
@@ -24,12 +24,14 @@ function EditUserPage() {
   // const [editPFP, setEditPFP] = useState('');
   // const [editIntro, setEditIntro] = useState('');
   // const [editAddress, setEditAddress] = useState('');
-    useEffect(() => {
-    dispatch({
-      type: 'FETCH_USER_DETAIL',
-      payload: {userId: user.id}
-    });
-  }, []);
+  //   useEffect(() => {
+  //   dispatch({
+  //     type: 'FETCH_USER_DETAIL',
+  //     payload: {
+  //       userId: user.id
+  //       }
+  //   });
+  // }, []);
 
 
 
@@ -130,5 +132,5 @@ function EditUserPage() {
   );
 }
 
-export default EditUserPage;
+export default EditUser;
 

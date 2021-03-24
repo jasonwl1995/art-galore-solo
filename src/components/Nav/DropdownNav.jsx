@@ -37,7 +37,7 @@ function DropdownNav() {
       }
     });
 
-    //history.push(`/discoveruser/${newUser}`);
+    history.push(`/discoveruser/${newUser}`);
 
   }
 

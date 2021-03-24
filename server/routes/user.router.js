@@ -62,4 +62,44 @@ pool
   });
 });
 
+// retrieve user details
+router.get('/detail/:id', (req, res) => {
+    let userID = req.params.id;
+    //let queryText = `select * from artwork order by user_id asc`;
+    //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
+    const queryText = `SELECT "user".id, "user".username, "user".pfp, "user".intro FROM "user" WHERE id = $1`;
+  
+    pool
+      .query(queryText, [userID])
+      .then((result) => {
+          //if (process.env.DEBUG) 
+          //    console.log('artwork list is:', result.rows);
+          //expect only one row, so just return 1st row, not the the array of size=1
+          res.send(result.rows[0]);
+      })
+      .catch((err) => {
+              console.log('user detail retrieving failed: ', err);
+        res.sendStatus(500);
+      });
+  });
+
+//this is to get artwork detail
+
+//this is to handle put request EDIT/UPDATE
+router.put('/', (req, res) => {
+  console.log(req.body);
+    let newData = req.body;
+    //console.log('artwork to update:', newData);
+    const queryText = `UPDATE "user" SET username = $1, pfp = $2, intro = $3 WHERE id = $4`;
+    pool
+      .query(queryText, [newData.username, newData.pfp, newData.intro, newData.id])
+      .then ((result) => {
+          res.sendStatus(200);
+      })
+      .catch ((err) => {
+        console.error('error updating artwork:', err);
+        res.sendStatus(500);
+      })
+  });
+
 module.exports = router;
