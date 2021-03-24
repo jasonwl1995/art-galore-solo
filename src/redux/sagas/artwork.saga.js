@@ -74,6 +74,7 @@ function* discoverUserArtwork(action) {
 
 // Get artwork detail from database
 function* fetchArtworkDetails(action){
+  console.log('fetchartworkDETAILS', action.payload);
   try{
     const details = yield axios.get(`/api/artwork/${action.payload.userId}/${action.payload.artworkId}`);
     console.log('GET ARTWORK details', details.data);
@@ -189,7 +190,7 @@ function* fetchLikeArtworks(action) {
   let data = action.payload;
   try {
     const response = 
-    yield axios.get(`/api/artwork/querylikes/${data.userid}`);
+    yield axios.get(`/api/likes/${data.userId}`);
     if (response.status === 200)
     {
       yield put({ 
@@ -206,15 +207,15 @@ function* unlikeArtwork(action) {
   let data = action.payload;
   try {
     const response = 
-    yield axios.put('/api/artwork/unlike', data);
+    yield axios.put('/api/likes/unlike', data);
 
     if (response.status === 200)
     {
-      console.log('ready to re-pull liked list', data.userid);
+      console.log('ready to re-pull liked list', data.userId);
       yield put({ 
         type: 'FETCH_LIKE_ARTWORK', 
         payload: {
-          userid: data.userid
+          userId: data.userId
           }});
     }
 
@@ -226,17 +227,18 @@ function* unlikeArtwork(action) {
 function* likeArtworkDetail(action) {
 
   let data = action.payload;
-
+  console.log('data', data);
   try {
-    const response = yield axios.put('/api/artwork/like', data);
+    const response = yield axios.put('/api/likes/like', data);
 
     if (response.status === 200)
     {
       yield put({ 
         type: 'FETCH_ARTWORK_DETAIL', 
         payload: {
-          artworkid: data.artworkid, 
-          userid: data.userid}}); 
+          artworkId: data.artworkId, 
+          userId: data.userId
+        }}); 
     }
   } catch (error) {
     console.log('likeArtworkDetail request failed', error);
@@ -245,18 +247,19 @@ function* likeArtworkDetail(action) {
 
 function* unlikeArtworkDetail(action) {
   let data = action.payload;
-
+console.log('unlikeArtworkDetail', data);
   try {
     // need for credentials ???
-    const response = yield axios.put('/api/artwork/unlike', data);
+    const response = yield axios.put('/api/likes/unlike', data);
 
     if (response.status === 200)
     {
       yield put({ 
         type: 'FETCH_ARTWORK_DETAIL', 
         payload: {
-          artworkid: data.artworkid, 
-          userid: data.userid}}); 
+          artworkId: data.artworkId, 
+          userId: data.userId
+          }}); 
     }
 
   } catch (error) {

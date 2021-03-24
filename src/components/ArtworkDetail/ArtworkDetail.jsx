@@ -7,9 +7,11 @@ function ArtworkDetail() {
   const history = useHistory();
   const params = useParams();
   const artworkId = params;
+  console.log('artwork id', artworkId);
 
   // data from redux
   const detail = useSelector(store => store.detail);
+  const artwork = useSelector(store => store.artwork);
   const user = useSelector((store) => store.user);
   const userList = useSelector(store => store.userList);
   // const userList = useSelector(store => store.userList);
@@ -29,22 +31,22 @@ function ArtworkDetail() {
 
   const likeDetails = () => {
     dispatch({
-      type: 'ADD_LIKE_ON_DETAILPAGE',
+      type: 'LIKE_ARTWORK_DETAIL',
       payload: {
-        artworkId: artwork.id,
-        userid: user.id,
-        discover_userid: params.id,  //this is wrong
+        artworkId: artworkId.id,
+        userId: user.id,
+        // discover_userid: params.id,  //this is wrong
       }
     });
  };
 
  const unlikeDetails = () => {
     dispatch({
-      type: 'ADD_UNLIKE_ON_DETAILPAGE',
+      type: 'UNLIKE_ARTWORK_DETAIL',
       payload: {
-        artworkid: artwork.id,
-        userid: user.id,
-        discover_userid: params.id,  //this is wrong
+        artworkId: artworkId.id,
+        userId: user.id,
+        // discover_userid: params.id,  //this is wrong
       }
     });
  };

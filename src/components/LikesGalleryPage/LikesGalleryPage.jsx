@@ -7,7 +7,8 @@ function LikesGalleryPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
-  const likeUserId = params;
+  
+
 
   const user = useSelector(store => store.user);
   const artworkList = useSelector(store => store.artwork);
@@ -16,7 +17,7 @@ function LikesGalleryPage() {
     dispatch({
       type: 'FETCH_LIKE_ARTWORK',
       payload: {
-        userid: likeUserId.id
+        userId: user.id
       },
     });
   }, []);
@@ -25,8 +26,8 @@ const unlikeArtwork = (artworkid) => {
   dispatch({
     type: 'UNLIKE_ARTWORK',
     payload: {
-      artworkid: artworkid,
-      userid: user.id,
+      artworkId: artworkid,
+      userId: user.id,
     }
   });
 };
@@ -55,7 +56,7 @@ const unlikeArtwork = (artworkid) => {
                     <br></br>
                     <div>
                       <button onClick = { (evt) => {unlikeArtwork(artwork.id)}}>
-                        UnLike
+                        Unlike
                       </button>
                     </div>
                   </>
