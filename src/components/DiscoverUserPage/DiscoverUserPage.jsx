@@ -46,6 +46,8 @@ function DiscoverUserPage() {
 //    });
 // };
 
+console.log('artworkList', artworkList);
+console.log('artworkList', artworkList.length);
 return(
   <div>
     <main>

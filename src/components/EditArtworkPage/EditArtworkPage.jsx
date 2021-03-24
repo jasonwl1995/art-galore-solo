@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link, useParams } from 'react-router-dom';
 import ImageUpload from '../ImageUpload/ImageUpload';
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function EditArtworkPage() {
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ console.log('artworkID', artworkId);
   /* Local state variables used for capturing form input */
   const [editTitle, setEditTitle] = useState(detail.title);
   const [editImage, setEditImage] = useState(detail.image);
-  const [editDate, setEditDate] = useState(detail.date);
+  const [editDate, setEditDate] = useState('');
   const [editDescription, setEditDescription] = useState(detail.description);
   // const [editCategory, setEditCategory] = useState(artwork.category);
 
@@ -114,13 +116,14 @@ console.log('artworkID', artworkId);
               <label htmlFor="artworkDate">Artwork Date: </label>
             </td>
             <td>
-              <input
+              <DatePicker selected={editDate} placeholderText="Select a Date" onChange={date => setEditDate(date)} />
+              {/* <input
               name="artworkDate"
               type="text"
               placeholder="Artwork Date"
               value={editDate}
               onChange={(event) => setEditDate(event.target.value)}
-              />
+              /> */}
             </td>
           </tr>
 

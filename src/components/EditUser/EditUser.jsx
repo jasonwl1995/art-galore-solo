@@ -24,6 +24,7 @@ function EditUser() {
   // const [editPFP, setEditPFP] = useState('');
   // const [editIntro, setEditIntro] = useState('');
   // const [editAddress, setEditAddress] = useState('');
+  
   //   useEffect(() => {
   //   dispatch({
   //     type: 'FETCH_USER_DETAIL',

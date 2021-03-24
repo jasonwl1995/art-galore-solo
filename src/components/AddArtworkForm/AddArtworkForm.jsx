@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { generatePath, Link } from 'react-router-dom';
 import ImageUpload from '../ImageUpload/ImageUpload';
 
+
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 function AddArtworkForm() {
   const dispatch = useDispatch();
 
@@ -96,14 +100,15 @@ function AddArtworkForm() {
               <label htmlFor="artworkDate">Artwork Date: </label>
             </td>
             <td>
-              <input
+              <DatePicker selected={artworkDate} placeholderText="Select a Date" onChange={date => setArtworkDate(date)} />
+              {/* <input
               name="artworkDate"
               type="text"
               placeholder="Date Created"
               value={artworkDate}
               onChange={(evt) => setArtworkDate(evt.target.value)}
               required
-              />
+              /> */}
             </td>
           </tr>
 

@@ -8,8 +8,6 @@ function LikesGalleryPage() {
   const history = useHistory();
   const params = useParams();
   
-
-
   const user = useSelector(store => store.user);
   const artworkList = useSelector(store => store.artwork);
 
@@ -36,11 +34,13 @@ const unlikeArtwork = (artworkid) => {
     <div>
       <main>
       <h1>Likes Galore!</h1>
-        <h2>Here are your liked Artworks!</h2>
         <section className="artwork">
             {
               //making sure artworkList is populated before rendering
-              artworkList && artworkList.length && 
+              (artworkList && artworkList.length)?
+              <> 
+              <h2>Here are your liked Artworks!</h2>
+              { 
               artworkList.map((artwork, i) => {
                   return (
                     <>
@@ -61,7 +61,13 @@ const unlikeArtwork = (artworkid) => {
                     </div>
                   </>
                   );
-              })              
+              })
+              }
+            </>
+            :
+            <>
+              <h3>You Have Not Liked Any Artworks Yet!</h3>
+            </>
             }
         </section>
       </main>

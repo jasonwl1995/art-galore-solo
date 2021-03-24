@@ -36,6 +36,7 @@ function* fetchUserList() {
 }
 
 function* fetchUserDetails(action){
+  console.log('fetching user detail', action.payload);
   try{
     const details = yield axios.get(`/api/user/detail/${action.payload.userId}`);
     console.log('GET USER details', details.data);
@@ -49,11 +50,15 @@ function* fetchUserDetails(action){
 }
 
 function* editUser(action) {
+  console.log('editing user', action.payload);
   try {
     yield axios.put('/api/user/', action.payload);
     console.log("update user Success");
     yield put({
-      type: 'FETCH_USER_DETAIL'
+      type: 'FETCH_USER_DETAIL',
+      payload: {
+        userId: action.payload.id
+        }
     })
   } catch (err) {
     console.log(' SAGA ERROR EDITUSER PUT', err);

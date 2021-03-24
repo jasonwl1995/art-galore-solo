@@ -101,7 +101,7 @@ router.get('/:userid/:artworkid', (req, res) => {
     const userID = req.params.userid;
     //let queryText = `select * from artwork order by user_id asc`;
     //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
-    const queryText = `SELECT art.*, cat.theme, usr.username, 
+    const queryText = `SELECT art.id, art.user_id, art.title, TO_CHAR(art.date, 'MM/DD/YYYY') AS date, art.image, art.description, art.category_id, cat.theme, usr.username, 
                       (SELECT count(1) FROM like_log ll WHERE ll.user_id = $1 AND ll.artwork_id = art.id) AS favorite
                       FROM artwork art, category cat, "user" usr WHERE art.category_id = cat.id AND art.user_id = usr.id AND art.id = $2`;
   

@@ -50,7 +50,11 @@ router.post('/logout', (req, res) => {
 //retrieve user list
 router.get('/list', (req, res) => {
 
-const queryText = `SELECT id, username, intro, address, city, state, zip FROM "user" ORDER BY username ASC`;
+const queryText = `SELECT id, username, intro, address, city, state, zip, 
+                  (SELECT COUNT(1) FROM artwork WHERE artwork.user_id = "user".id) AS artwork_count 
+                  FROM "user"
+                  ORDER BY username ASC
+`;
 pool
   .query(queryText)
   .then((result) => {

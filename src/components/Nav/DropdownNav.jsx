@@ -55,7 +55,7 @@ function DropdownNav() {
                 userList && userList.length && userList.map((usr, i) => {
                     return (
                     // only display other users on the list? 
-                    (usr.id !== user.id)? 
+                    ((usr.id !== user.id) && ((usr.artwork_count * 1) > 0))? 
                     <>
                     <option key={i} value={usr.id}>{usr.username} - {usr.id}</option>
                     </>
@@ -69,6 +69,8 @@ function DropdownNav() {
         }
     </>
   );
+  
 }
+
 
 export default DropdownNav;
