@@ -1,49 +1,71 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-import './GalleryPage.css';
-
-function MyGalleryPage() {
+function LikesGalleryPage() {
+  console.log("starting of LikeGalleryPage");
   const dispatch = useDispatch();
   const history = useHistory();
+  const params = useParams();
+  const likeUserId = params;
 
-  const artwork = useSelector(store => store.artwork);
+  const user = useSelector(store => store.user);
+  const artworkList = useSelector(store => store.artwork);
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_ARTWORK'
+      type: 'FETCH_LIKE_ARTWORK',
+      payload: {
+        userid: likeUserId.id
+      },
     });
   }, []);
 
-  const handleDelete = () => {
-    dispatch({
-      type: 'DELETE_LIKE',
-      payload: likeArtwork.id,
-    });
-  };
+const unlikeArtwork = (artworkid) => {
+  dispatch({
+    type: 'UNLIKE_ARTWORK',
+    payload: {
+      artworkid: artworkid,
+      userid: user.id,
+    }
+  });
+};
 
   return(
     <div>
       <main>
-        <h1>MY GALLERY</h1>
+      <h1>Likes Galore!</h1>
+        <h2>Here are your liked Artworks!</h2>
         <section className="artwork">
-            {artwork.map((artwork) => {
-                return (
-                  <div key={artwork.id} >
-                    <img src={artwork.poster} alt={artwork.title} 
-                    onClick={() => history.push(`/details/${artwork.id}`)}/>
-                    <h3>{artwork.title}</h3>
-                    <button id="deleteBtn" onClick={handleDelete}>
-                      Delete
-                    </button>
-                  </div>
-                );
-            })}
+            {
+              //making sure artworkList is populated before rendering
+              artworkList && artworkList.length && 
+              artworkList.map((artwork, i) => {
+                  return (
+                    <>
+                    <div className="artworkdiv" key = {i}>
+                      <img src={artwork.image} height="350px" weight = "250px "alt={artwork.description} 
+                      onClick={() => history.push(`/details/${artwork.id}`)}/>
+                      
+                    </div>
+                    <br></br>
+                    <div>
+                      <h3>{artwork.title}</h3>
+                    </div>
+                    <br></br>
+                    <div>
+                      <button onClick = { (evt) => {unlikeArtwork(artwork.id)}}>
+                        UnLike
+                      </button>
+                    </div>
+                  </>
+                  );
+              })              
+            }
         </section>
       </main>
     </div>
     );
 }
 
-export default MyGalleryPage;
+export default LikesGalleryPage;

@@ -29,6 +29,7 @@ import ArtworkDetail from '../ArtworkDetail/ArtworkDetail';
 import DiscoverUserPage from '../DiscoverUserPage/DiscoverUserPage';
 // import EditUserPage from '../EditUserPage/EditUserPage';
 import EditUser from '../EditUser/EditUser';
+import LikesGalleryPage from '../LikesGalleryPage/LikesGalleryPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -129,6 +130,10 @@ function App() {
 
           <ProtectedRoute exact path="/mygallery">
             <MyGalleryPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/likes">
+            <LikesGalleryPage />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/edit/:id">

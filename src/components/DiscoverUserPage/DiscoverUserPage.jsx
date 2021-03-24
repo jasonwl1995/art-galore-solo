@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import DropdownNav from '../Nav/DropdownNav';
 
 import './GalleryPage.css';
 
@@ -8,7 +9,7 @@ function DiscoverUserPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
-  const disUserId = params
+  const disUserId = params;
 
   const artworkList = useSelector(store => store.artwork);
   const user = useSelector((store) => store.user);
@@ -52,6 +53,14 @@ return(
       artworkList[0].username}'s Gallery!</h1>
       <h2>{artworkList && artworkList.length &&
       artworkList[0].intro}</h2>
+
+      <>
+      <div>
+        <p>Search By Username:</p>
+        <DropdownNav />
+      </div>
+      </>
+
       <section className="artwork">
           {
             //making sure artworkList is populated before rendering

@@ -11,6 +11,12 @@ function* artworkSaga() {
   yield takeLatest('ADD_ARTWORK', addArtwork);
   yield takeLatest('EDIT_ARTWORK', editArtwork);
   yield takeLatest('DELETE_ARTWORK', deleteArtwork);
+
+  yield takeLatest('FETCH_LIKE_ARTWORK', fetchLikeArtworks);
+  yield takeLatest('UNLIKE_ARTWORK', unlikeArtwork);
+
+  yield takeLatest('LIKE_ARTWORK_DETAIL', likeArtworkDetail);
+  yield takeLatest('UNLIKE_ARTWORK_DETAIL', unlikeArtworkDetail);
 }
 //how to use a global flag??
 const DEBUG=true;
@@ -166,17 +172,96 @@ function* addLike(action) {
   }
 } // end addFavorite
 
-function* fetchLikes() {
-  try {
-    let response = yield axios.get('/api/likes');
-    yield put({
-      type: 'SET_LIKES',
-      payload: response.data,
-    });
-  } catch (err) {
-    console.log('fetch error', err);
-  }
-} // end fetchFavorites
+// function* fetchLikes() {
+//   try {
+//     let response = yield axios.get('/api/likes');
+//     yield put({
+//       type: 'SET_LIKES',
+//       payload: response.data,
+//     });
+//   } catch (err) {
+//     console.log('fetch error', err);
+//   }
+// } // end fetchFavorites
 
+
+function* fetchLikeArtworks(action) {
+  let data = action.payload;
+  try {
+    const response = 
+    yield axios.get(`/api/artwork/querylikes/${data.userid}`);
+    if (response.status === 200)
+    {
+      yield put({ 
+        type: 'SET_LIKE_ARTWORK', 
+        payload: response.data
+        });
+    }
+  } catch (error) {
+    console.log('fetchLikeArtwork request failed', error);
+  }
+}
+
+function* unlikeArtwork(action) {
+  let data = action.payload;
+  try {
+    const response = 
+    yield axios.put('/api/artwork/unlike', data);
+
+    if (response.status === 200)
+    {
+      console.log('ready to re-pull liked list', data.userid);
+      yield put({ 
+        type: 'FETCH_LIKE_ARTWORK', 
+        payload: {
+          userid: data.userid
+          }});
+    }
+
+  } catch (error) {
+    console.log('unlikeArtwork request failed', error);
+  }
+}
+
+function* likeArtworkDetail(action) {
+
+  let data = action.payload;
+
+  try {
+    const response = yield axios.put('/api/artwork/like', data);
+
+    if (response.status === 200)
+    {
+      yield put({ 
+        type: 'FETCH_ARTWORK_DETAIL', 
+        payload: {
+          artworkid: data.artworkid, 
+          userid: data.userid}}); 
+    }
+  } catch (error) {
+    console.log('likeArtworkDetail request failed', error);
+  }
+}
+
+function* unlikeArtworkDetail(action) {
+  let data = action.payload;
+
+  try {
+    // need for credentials ???
+    const response = yield axios.put('/api/artwork/unlike', data);
+
+    if (response.status === 200)
+    {
+      yield put({ 
+        type: 'FETCH_ARTWORK_DETAIL', 
+        payload: {
+          artworkid: data.artworkid, 
+          userid: data.userid}}); 
+    }
+
+  } catch (error) {
+    console.log('unlikeArtworkDetail request failed', error);
+  }
+}
 
 export default artworkSaga;

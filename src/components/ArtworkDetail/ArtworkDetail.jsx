@@ -27,6 +27,28 @@ function ArtworkDetail() {
     });
   }, []);
 
+  const likeDetails = () => {
+    dispatch({
+      type: 'ADD_LIKE_ON_DETAILPAGE',
+      payload: {
+        artworkId: artwork.id,
+        userid: user.id,
+        discover_userid: params.id,  //this is wrong
+      }
+    });
+ };
+
+ const unlikeDetails = () => {
+    dispatch({
+      type: 'ADD_UNLIKE_ON_DETAILPAGE',
+      payload: {
+        artworkid: artwork.id,
+        userid: user.id,
+        discover_userid: params.id,  //this is wrong
+      }
+    });
+ };
+
   const clickHandler = (evt) => {
     //go to discover user page
 
@@ -46,12 +68,6 @@ function ArtworkDetail() {
     history.push(`/discoveruser/${detail.user_id}`);
   }
   
-  // const likeArtwork = ({artwork.id}) => {
-  //   dispatch({
-  //     type: 'ADD_LIKE',
-  //     payload: { artwork.id }
-  //   });
-  // };
 
   console.log("detail", detail);
   return (
@@ -88,19 +104,22 @@ function ArtworkDetail() {
         <p>Description:</p>
         <p>{detail.description}</p>
       </section>
+
+      {
+      (Number(detail.favorite) > 0)? 
+      <>
+      <button className="delete-button" onClick={unlikeDetails}>
+        Unlike
+      </button>
+      </>
+      :
+      <>
+      <button className="edit-button" onClick={likeDetails}>
+        Like
+      </button>
+      </>
+      }
       
-      
-      {/* {details.array_agg ? (
-      <span>
-        {details.array_agg.map((genre) => {
-          return (
-            <p>{genre}</p>
-          );
-        })}
-      </span>
-      ) : (
-        <div></div>
-      )} */}
 
       {/* <button onClick = {() => likeArtwork{artwork.id}}>
         Like

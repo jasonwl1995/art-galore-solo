@@ -52,7 +52,9 @@ function* editUser(action) {
   try {
     yield axios.put('/api/user/', action.payload);
     console.log("update user Success");
-    
+    yield put({
+      type: 'FETCH_USER_DETAIL'
+    })
   } catch (err) {
     console.log(' SAGA ERROR EDITUSER PUT', err);
   }
