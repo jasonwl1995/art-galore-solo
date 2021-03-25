@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link, useParams } from 'react-router-dom';
+
+import ImageUpload from '../ImageUpload/ImageUpload';
 // import ImageUpload from '../ImageUpload/ImageUpload';
 
 function EditUser() {
@@ -12,11 +14,13 @@ function EditUser() {
 
   /* Grab data from Redux store */
   const user = useSelector((store) => store.user);
+
+  const pfpUrl = useSelector ((store) => store.aws);
   // const category = useSelector((store) => store.category);
 
   /* Local state variables used for capturing form input */
   const [editUsername, setEditUsername] = useState(user.username);
-  const [editPFP, setEditPFP] = useState(user.pfp);
+  // const [editPFP, setEditPFP] = useState(user.pfp);
   const [editIntro, setEditIntro] = useState(user.intro);
   // const [editAddress, setEditAddress] = useState(user.address);
 
@@ -46,7 +50,7 @@ function EditUser() {
       payload: {
         id: user.id,
         username: editUsername,
-        pfp: editPFP,
+        pfp: pfpUrl,
         intro: editIntro,
         // address: editAddress
       },
@@ -79,6 +83,15 @@ function EditUser() {
 
           <tr>
             <td>
+            <label htmlFor="pfpImage">Edit Profile Picture: </label>
+            </td>
+            <td>
+              <ImageUpload />
+            </td>
+          </tr>
+
+          {/* <tr>
+            <td>
               <label htmlFor="userPFP">Profile Picture URL: </label>
             </td>
             <td>
@@ -90,16 +103,16 @@ function EditUser() {
               onChange={(event) => setEditPFP(event.target.value)}
               />
             </td>
-          </tr>
+          </tr> */}
 
-          <tr>
+          {/* <tr>
             <td>
             <label htmlFor="editPFP">Profile Picture: </label>
             </td>
             <td>
-              {/* <ImageUpload /> */}
+              <ImageUpload /> 
             </td>
-          </tr>
+          </tr> */}
 
           <tr>
             <td>

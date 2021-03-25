@@ -163,9 +163,9 @@ router.put('/', (req, res) => {
   console.log(req.body);
     let newData = req.body;
     //console.log('artwork to update:', newData);
-    const queryText = `UPDATE artwork SET title = $1, date = $2, image = $3, description = $4 WHERE id = $5`;
+    const queryText = `UPDATE artwork SET title = $1, description = $2 WHERE id = $3`;
     pool
-      .query(queryText, [newData.title, newData.date, newData.image, newData.description, newData.id])
+      .query(queryText, [newData.title, newData.description, newData.id])
       .then ((result) => {
           res.sendStatus(200);
       })

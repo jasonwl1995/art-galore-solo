@@ -21,8 +21,8 @@ console.log('artworkID', artworkId);
 
   /* Local state variables used for capturing form input */
   const [editTitle, setEditTitle] = useState(detail.title);
-  const [editImage, setEditImage] = useState(detail.image);
-  const [editDate, setEditDate] = useState('');
+  // const [editImage, setEditImage] = useState(detail.image);
+  // const [editDate, setEditDate] = useState('');
   const [editDescription, setEditDescription] = useState(detail.description);
   // const [editCategory, setEditCategory] = useState(artwork.category);
 
@@ -51,8 +51,8 @@ console.log('artworkID', artworkId);
         id: detail.id,
         title: editTitle,
         // image: artworkImage,
-        date: editDate,
-        image: editImage,
+        // date: editDate,
+        // image: editImage,
         description: editDescription,
         // category_id: editCategory,
       },
@@ -86,7 +86,7 @@ console.log('artworkID', artworkId);
               />
             </td>
           </tr>
-
+{/* 
           <tr>
             <td>
             <label htmlFor="artworkImage">Artwork Image: </label>
@@ -109,23 +109,23 @@ console.log('artworkID', artworkId);
               onChange={(event) => setEditImage(event.target.value)}
               />
             </td>
-          </tr>
+          </tr> */}
 
-          <tr>
+          {/* <tr>
             <td>
               <label htmlFor="artworkDate">Artwork Date: </label>
             </td>
             <td>
-              <DatePicker selected={editDate} placeholderText="Select a Date" onChange={date => setEditDate(date)} />
-              {/* <input
+              <DatePicker required selected={editDate} placeholderText="Select a Date" onChange={date => setEditDate(date)} />
+              <input
               name="artworkDate"
               type="text"
               placeholder="Artwork Date"
               value={editDate}
               onChange={(event) => setEditDate(event.target.value)}
-              /> */}
+              /> 
             </td>
-          </tr>
+          </tr> */}
 
           <tr>
             <td>

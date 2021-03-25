@@ -5,6 +5,7 @@ import artwork from './artwork.reducer';
 import detail from './detail.reducer';
 import category from './category.reducer';
 import userList from './userlist.reducer';
+import aws from './aws.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   detail,
   category,
   userList,
+  aws,
 });
 
 export default rootReducer;

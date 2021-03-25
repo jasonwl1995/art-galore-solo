@@ -13,6 +13,7 @@ const artworkRouter = require('./routes/artwork.router');
 const categoryRouter = require('./routes/category.router');
 const discoveruserRouter = require('./routes/discoveruser.router');
 const likesRouter = require('./routes/likes.router');
+const awsRouter = require('./routes/aws.router');
 
 // TODO AWS const
 const UploaderS3Router = require('react-dropzone-s3-uploader/s3router')
@@ -47,6 +48,7 @@ app.use('/api/artwork', artworkRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/discoveruser', discoveruserRouter);
 app.use('/api/likes', likesRouter);
+app.use('/api/aws', awsRouter);
 
 // Serve static files
 app.use(express.static('build'));

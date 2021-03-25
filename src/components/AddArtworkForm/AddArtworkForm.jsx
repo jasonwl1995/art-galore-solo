@@ -14,9 +14,12 @@ function AddArtworkForm() {
   // (STRETCH TO ADD CATEGORIES)
   const category = useSelector(store => store.category);
   const user = useSelector(store => store.user);
+
+  const artworkImage = useSelector(store => store.aws);
+
   //Local Store
   const [artworkTitle, setArtworkTitle] = useState('');
-  const [artworkImage, setArtworkImage] = useState('');
+  // const [artworkImage, setArtworkImage] = useState('');
   const [artworkDate, setArtworkDate] = useState('');
   const [artworkDescription, setArtworkDescription] = useState('');
   const [artworkCategory, setArtworkCategory] = useState('');
@@ -45,7 +48,7 @@ function AddArtworkForm() {
     })
     setArtworkTitle('');
     setArtworkDate('');
-    setArtworkImage('');
+    // setArtworkImage('');
     setArtworkDescription('');
     setArtworkCategory('');
   };
@@ -80,7 +83,7 @@ function AddArtworkForm() {
             </td>
           </tr>
 
-          <tr>
+          {/* <tr>
             <td>
               <label htmlFor="artworkImage">Artwork Thumbnail URL: </label>
             </td>
@@ -93,7 +96,7 @@ function AddArtworkForm() {
               onChange={(evt) => setArtworkImage(evt.target.value)}
               />
             </td>
-          </tr>
+          </tr> */}
 
           <tr>
             <td>
