@@ -37,12 +37,12 @@ function DiscoverGalleryPage() {
           </>
         )}
 
-        {/* <>
+        <>
         <div>
           <p>Sort By Category:</p>
           <DropdownNavCategory discover_userId="all"/>
         </div>
-        </> */}
+        </>
 
         <section className="artwork">
             {

@@ -67,12 +67,12 @@ return(
       </div>
       </>
 
-      {/* <>
+      <>
         <div>
           <p>Sort By Category:</p>
           <DropdownNavCategory discover_userId={disUserId.id}/>
         </div>
-      </> */}
+      </>
 
       <section className="artwork">
           {
