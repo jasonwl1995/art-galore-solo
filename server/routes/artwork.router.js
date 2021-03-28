@@ -25,7 +25,7 @@ router.get('/discovergallery/:id', rejectUnauthenticated, (req, res) => {
       });
   });
 
-//this is to get artworks for one user (artisit)
+// GET artwork from one user
 router.get('/:id', rejectUnauthenticated, (req, res) => {  
     let userID = req.params.id;
 
@@ -44,21 +44,17 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
       });
   });
 
-  //this is to get artwork detail
+// GET artwork detail
 router.get('/:userid/:artworkid', rejectUnauthenticated, (req, res) => {
     const artworkID = req.params.artworkid;
     const userID = req.params.userid;
-    //let queryText = `select * from artwork order by user_id asc`;
     //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
     const queryText = `SELECT art.id, art.user_id, art.title, TO_CHAR(art.date, 'MM/DD/YYYY') AS date, art.image, art.description, art.category_id, cat.theme, usr.username, 
                       (SELECT count(1) FROM like_log ll WHERE ll.user_id = $1 AND ll.artwork_id = art.id) AS favorite
                       FROM artwork art, category cat, "user" usr WHERE art.category_id = cat.id AND art.user_id = usr.id AND art.id = $2`;
-  
     pool
       .query(queryText, [userID, artworkID])
       .then((result) => {
-          //if (process.env.DEBUG) 
-          //    console.log('artwork list is:', result.rows);
           //expect only one row, so just return 1st row, not the the array of size=1
           res.send(result.rows[0]);
       })
@@ -68,9 +64,7 @@ router.get('/:userid/:artworkid', rejectUnauthenticated, (req, res) => {
       });
   });
 
-//this is to get artwork detail
-
-
+// DELETE artwork from database
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
   
     let artworkID = req.params.id;
@@ -78,22 +72,16 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     /*
     //need to run the following 3 queries, in the following order
         delete from like_log where artwork_id = aid
-        delete from artwork_category where artwork_id = aid
         delete from artwork where id = aid
     */
-    //let queryText = `select * from artwork order by user_id asc`;
-    //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
-    //is there a way to run 3 queries as a whole????
-
-    //the following codes worked fine and it did delete from all 3 tables
-    const queryText1 = `delete from like_log where artwork_id = $1 `;
+    // Deletes artwork from both tables
+    const queryText1 = `DELETE FROM like_log WHERE artwork_id = $1 `;
     pool
       .query(queryText1, [artworkID])
       .then((result1) => {
-        const sqlText2 = `delete from artwork where id = $1`;
+        const sqlText2 = `DELETE FROM artwork WHERE id = $1`;
         pool.query(sqlText2, [artworkID])
           .then((result2) => {
-            //success, all is ok
             res.sendStatus(200);
           })
           .catch(err2=> {
@@ -107,11 +95,10 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
      
   });
    
-//this is to handle put request
+// UPDATE DB with new artwork details
 router.put('/', rejectUnauthenticated, (req, res) => {
   console.log(req.body);
     let newData = req.body;
-    //console.log('artwork to update:', newData);
     const queryText = `UPDATE artwork SET title = $1, description = $2 WHERE id = $3`;
     pool
       .query(queryText, [newData.title, newData.description, newData.id])
@@ -125,7 +112,7 @@ router.put('/', rejectUnauthenticated, (req, res) => {
   });
   
   
-//handle adding artwork request
+// POST a new artwork onto the DB
 router.post('/', rejectUnauthenticated, (req, res) => {
     //new artwork
     let newArtwork = req.body;
@@ -140,6 +127,5 @@ router.post('/', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         });
 });
-
 
 module.exports = router;

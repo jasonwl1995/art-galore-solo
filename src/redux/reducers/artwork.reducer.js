@@ -1,3 +1,5 @@
+// Used to store all artworks returned from the Server
+// Used to store liked artworks from the Server
 const artworkReducer = (state = {}, action) => {
   console.log('inside artworkReducer, payload is:', action.payload);
   switch (action.type) {

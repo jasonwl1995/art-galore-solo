@@ -5,33 +5,22 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import AddArtworkForm from '../AddArtworkForm/AddArtworkForm';
-// import EditArtworkPage from '../EditArtworkPage/EditArtworkPage';
-// import UserDetail from '../UserDetail/UserDetail';
 
+// Function fetches user details from the database
+// and add artwork form to displays it on the Artwork Details page
 function ProfilePage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
+  // Grabs information from Global Redex Store
   const user = useSelector((store) => store.user);
 
-  // // on load, get(fetch)
-  // // Display details on the page
-
-  // useEffect(() => {
-  //     dispatch({
-  //     type: 'FETCH_USER_DETAIL',
-  //     payload: {
-  //       userId: user.id
-  //       }
-  //   });
-  // }, []);
-
+  // Takes user to edit user detail page upon 'Edit' button click
   const editUser = (userId) => {
       dispatch({
-      type: 'FETCH_USER_DETAIL',
-      payload: {
-        userId: user.id
+        type: 'FETCH_USER_DETAIL',
+        payload: {
+          userId: user.id
         }
     });
     // Navigate to `/editUser` page
@@ -42,28 +31,29 @@ function ProfilePage() {
 
   return (
     <div className="container">
-      {/* <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p> */}
-
+      {/* Displays user profile picture */}
       <div>
         <img src={user.pfp} alt={user.title} />
         <h2>Welcome, {user.username}!</h2>
         <h3>Gallery Intro: </h3>
         <h4>(Displays on your Gallery Page)</h4>
+        {/* Displays user introduction */}
         <p>{user.intro}</p>
 
+        {/* Button that calls editUser function */}
         <button className="edit-button" onClick={editUser}>
           Edit
         </button>
       </div>
 
+      {/* Imports Logout Button */}
       <LogOutButton className="btn" />
-      {/* <UserDetail /> */}
+
+      {/* Imports add artwork form */}
       <AddArtworkForm />
 
     </div>
   );
 }
 
-// this allows us to use <App /> in index.js
 export default ProfilePage;

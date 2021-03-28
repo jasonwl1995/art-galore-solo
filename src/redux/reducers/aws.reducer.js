@@ -1,3 +1,4 @@
+// Used to store artwork image url from the Server
 const awsReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_IMAGE_URL':

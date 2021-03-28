@@ -1,10 +1,12 @@
+/* Import Libraries */
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+// Creates rootSaga Generator function
 function* artworkSaga() {
   yield takeLatest('FETCH_USER_ARTWORK', fetchUserArtwork);
-  yield takeLatest('DISCOVER_GALLERY_ARTWORK', discoverGalleryArtwork);   //discover gallery
-  yield takeLatest('DISCOVER_USER_ARTWORK', discoverUserArtwork); 
+  yield takeLatest('DISCOVER_GALLERY_ARTWORK', discoverGalleryArtwork);   // Discover gallery
+  yield takeLatest('DISCOVER_USER_ARTWORK', discoverUserArtwork);         // Discover user gallery
 
   yield takeLatest('FETCH_ARTWORK_DETAIL', fetchArtworkDetails);
 
@@ -18,66 +20,55 @@ function* artworkSaga() {
   yield takeLatest('LIKE_ARTWORK_DETAIL', likeArtworkDetail);
   yield takeLatest('UNLIKE_ARTWORK_DETAIL', unlikeArtworkDetail);
 }
-//how to use a global flag??
-const DEBUG=true;
 
-//   Get all artwork from database
+//  GET all logged in user artwork from database
 function* fetchUserArtwork(action) {
   try {
-    // need for credentials ???
     const response = yield axios.get(`/api/artwork/${action.payload.userid}`);
-    //if success, set the data to store
     if (response.status === 200)
     {
       yield put({ type: 'SET_ARTWORK', payload: response.data});
     }
-
   } catch (error) {
     console.log('fetch artwork request failed', error);
   }
 }
 
-// DISCOVER HOME PAGE
+// GET all artworks from database
 function* discoverGalleryArtwork(action) {
 
   try {
     const response = yield axios.get(`/api/artwork/discovergallery/${action.payload.userid}`);
-    //if success, set the data to store
     if (response.status === 200)
     {
       yield put({ type: 'SET_ARTWORK', payload: response.data});
     }
-
   } catch (error) {
     console.log('fetch other artwork request failed', error);
   }
 }
 
-
-// Takes to gallery by user ID
+// GET artworks by user ID 
 function* discoverUserArtwork(action) {
+
   const data = action.payload;
   let queryURL = `/api/discoveruser?userid=${action.payload.userid}&discover_userid=${data.discover_userid}`;
 
   try {
     const response = yield axios.get(queryURL);
-    //if success, set the data to store
     if (response.status === 200)
     {
       yield put({ type: 'SET_ARTWORK', payload: response.data});
     }
-
   } catch (error) {
     console.log('discoverUserArtwork request failed', error);
   }
 }
 
-// Get artwork detail from database
+// GET artwork detail from database
 function* fetchArtworkDetails(action){
-  console.log('fetchartworkDETAILS', action.payload);
   try{
     const details = yield axios.get(`/api/artwork/${action.payload.userId}/${action.payload.artworkId}`);
-    console.log('GET ARTWORK details', details.data);
     yield put({
       type: 'SET_DETAIL',
       payload: details.data,
@@ -86,46 +77,19 @@ function* fetchArtworkDetails(action){
     console.log('get detail error', err);
   }
 }
-// worker Saga: will be fired on "ADD_ARTWORK" actions
 
-// Post new artwork to database
+// POST new artwork to database
 function* addArtwork(action) {
-
     let data = action.payload;
-
-    if (DEBUG) {
-        console.log('start of addArtwork, data=', data);
-    }
-
     try {
-      // need for credentials ???
       const response = 
-      yield axios.post('/api/artwork', data);
-
-      // if (DEBUG)
-      // {
-      //     console.log('response is:', response);
-      //     console.log('response status is:', response.status);
-      //     console.log('response data is:', response.data);
-      // }
-
-
-      // //need to set up message to let use know the status of adding artwork
-      // //if (response.data === 'OK')
-      // if (response.status === 200)
-      // {
-      //   yield put({ type: 'SET_ACTION_MSG', payload: 'The artwork has been successfully added'});
-      // }
-      // else
-      // {
-      //   yield put({ type: 'SET_ACTION_MSG', payload: 'Failed adding the artwork. Please try again.' });
-      // }
-
+        yield axios.post('/api/artwork', data);
     } catch (error) {
       console.log('Category get request failed', error);
     }
 }
 
+// PUT updated artwork details in DB
 function* editArtwork(action) {
   try {
     yield axios.put('/api/artwork/', action.payload);
@@ -136,16 +100,15 @@ function* editArtwork(action) {
   }
 }
 
-// worker Saga: will be fired on "DETELE_ARTWORK" actions, artowrk id should be in action.payload
+// worker Saga: will be fired on "DETELE_ARTWORK" actions, artwork id should be in action.payload
+// DELETE an artwork from database
 function* deleteArtwork(action) {
   try {
-    // need for credentials ???
     const response = yield axios.delete(`/api/artwork/${action.payload.artworkid}`);
-
-    //if successfully deteled the artwork, need to refresh store with database data, so kick off a FETCH....
     if (response.status === 200)
     {
       yield put({ 
+        //FETCHES USER ARTWORKS AGAIN WITHOUT DELETED TO DISPLAY ON DOM
         type: 'FETCH_USER_ARTWORK', 
         payload: {userid: action.payload.userid}
       });
@@ -156,36 +119,7 @@ function* deleteArtwork(action) {
   }
 }
 
-function* addLike(action) {
-  console.log('in addLike', action.payload);
-
-  // post favorite to database
-  try {
-    yield axios.post(`/api/likes/`, action.payload); // this is the url from the user clicking the fav button.
-
-    // update favoriteReducer
-    yield put({
-      // put is dispatching the information to be grabbed by whoever.
-      type: 'FETCH_LIKES', // this is being caught by RootSaga which is then being sent to function fetchFavorites()
-    });
-  } catch (err) {
-    console.log('Error in LIKES post', err);
-  }
-} // end addFavorite
-
-// function* fetchLikes() {
-//   try {
-//     let response = yield axios.get('/api/likes');
-//     yield put({
-//       type: 'SET_LIKES',
-//       payload: response.data,
-//     });
-//   } catch (err) {
-//     console.log('fetch error', err);
-//   }
-// } // end fetchFavorites
-
-
+// GET all artworks liked by the user
 function* fetchLikeArtworks(action) {
   let data = action.payload;
   try {
@@ -203,6 +137,7 @@ function* fetchLikeArtworks(action) {
   }
 }
 
+// PUT or REMOVE liked image from LIKES PAGE
 function* unlikeArtwork(action) {
   let data = action.payload;
   try {
@@ -218,14 +153,13 @@ function* unlikeArtwork(action) {
           userId: data.userId
           }});
     }
-
   } catch (error) {
     console.log('unlikeArtwork request failed', error);
   }
 }
 
+// PUT artwork to like_log DB table from details page
 function* likeArtworkDetail(action) {
-
   let data = action.payload;
   console.log('data', data);
   try {
@@ -245,6 +179,7 @@ function* likeArtworkDetail(action) {
   }
 }
 
+// PUT or REMOVE liked image from Likes on DETAILS page
 function* unlikeArtworkDetail(action) {
   let data = action.payload;
 console.log('unlikeArtworkDetail', data);

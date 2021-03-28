@@ -1,15 +1,22 @@
+/* Import Libraries */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+// Function that allows user to input username and 
+// password in order to register to use app
 function RegisterForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // Local state variables used for capturing form input 
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Function called upon 'Register' button click
   const registerUser = (event) => {
+    // Keep page from refreshing on form submission
     event.preventDefault();
 
     dispatch({
@@ -21,10 +28,6 @@ function RegisterForm() {
     });
   }; // end registerUser
 
-  const onLogin = (event) => {
-    history.push('/home');
-  };
-
   return (
     <form className="formPanel" onSubmit={registerUser}>
       <h2>Register User</h2>
@@ -33,6 +36,8 @@ function RegisterForm() {
           {errors.registrationMessage}
         </h3>
       )}
+      
+      {/* Input field to input username */}
       <div>
         <label htmlFor="username">
           Username:
@@ -45,6 +50,8 @@ function RegisterForm() {
           />
         </label>
       </div>
+      
+      {/* Input field to input password */}
       <div>
         <label htmlFor="password">
           Password:
@@ -57,12 +64,10 @@ function RegisterForm() {
           />
         </label>
       </div>
+
+      {/* Button that calls registerUser function */}
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
-          {/* <h4>Already have an account?</h4>
-          <button className="btn btn_sizeSm" onClick={onLogin}>
-              Login
-          </button> */}
       </div>
     </form>
   );

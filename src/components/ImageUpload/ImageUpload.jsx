@@ -5,6 +5,7 @@ import DropzoneS3Uploader from 'react-dropzone-s3-uploader';
 import { useParams } from 'react-router-dom';
 // import './ImageUpload.css';
 
+// Styling for dropbox
 const dropzoneStyle = {
   border: '1px solid black',
   height: '200px',
@@ -12,15 +13,10 @@ const dropzoneStyle = {
   "background-color": "#dddddd",
 }
 
-
+// Calls function to set user uploaded image url onto database
 class ImageUpload extends Component {
-  // this.props.useParams();
-  // this.page = params.page;
 
     handleFinishedUpload = info => {
-      console.log('info', info);
-      // console.log('File uploaded with filename', info.filename)
-      console.log('Access it on s3 at', info.fileUrl)
       if( this.props.page === "AddArtworkImage" )
       {
       this.props.dispatch({
@@ -39,7 +35,6 @@ class ImageUpload extends Component {
         <p>File Uploaded!</p>
       </div>
       );
-      // this.props.children = {completedDropElement};
     }
 
   render() {
@@ -52,6 +47,7 @@ class ImageUpload extends Component {
 
     const s3Url = 'https://art-gallery-primesolo.s3.amazonaws.com'
 
+    // Displays text inside the dropbox
     // const innerDropElement = (
     //   <div class="inner-drop">
     //     <p>Click or Drop File Here!</p>

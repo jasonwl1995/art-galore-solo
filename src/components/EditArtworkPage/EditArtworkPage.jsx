@@ -4,28 +4,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link, useParams } from 'react-router-dom';
 import ImageUpload from '../ImageUpload/ImageUpload';
 
+// Function renders passed artwork details to be edited
 function EditArtworkPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
   const artworkId = params;
-console.log('artworkID', artworkId);
-  /* Grab data from Redux store */
+
+  // Grabs information from Global Redex Store
   const detail = useSelector((store) => store.detail);
   const user = useSelector((store) => store.user);
-  console.log('details', detail);
-  // const category = useSelector((store) => store.category);
 
-  /* Local state variables used for capturing form input */
+  // Local state variables used for capturing form input
   const [editTitle, setEditTitle] = useState(detail.title);
   const [editDescription, setEditDescription] = useState(detail.description);
 
-console.log('log preset', detail.title);
-console.log('log preset', detail.description);
-  // const [editTitle, setEditTitle] = useState('');
-  // const [editImage, setEditImage] = useState('');
-  // const [editDate, setEditDate] = useState('');
-  // const [editDescription, setEditDescription] = useState('');
+    // Ping saga to fetch artwork details
     useEffect(() => {
     dispatch({
       type: 'FETCH_ARTWORK_DETAIL',
@@ -34,8 +28,8 @@ console.log('log preset', detail.description);
         artworkId: artworkId.id}
     });
   }, []);
-  console.log('details', detail);
 
+  // Function handle of on click edit button
   const editArtwork = (event) => {
     // Keep page from refreshing on form submission
     event.preventDefault();
@@ -46,26 +40,24 @@ console.log('log preset', detail.description);
       payload: {
         id: detail.id,
         title: editTitle,
-        // image: artworkImage,
-        // date: editDate,
-        // image: editImage,
         description: editDescription,
-        // category_id: editCategory,
       },
     });
+    // Navigate back to My Artwork Details page
     history.push(`/mydetails/${artworkId.id}`);
-    // Navigate to detail page
-    // history.push('/details');
   };
 
   return (
     <section className="edit-page">
       <h2>Edit Artwork</h2>
+
+      {/* Displays artwork image */}
       <img src={detail.image} alt={detail.description}/>
 
       <form onSubmit={editArtwork}>
         <table>
 
+          {/* Input field to edit artwork title */}
           <tr>
             <td>
               <label htmlFor="artworkTitle">Artwork Title: </label>
@@ -82,7 +74,7 @@ console.log('log preset', detail.description);
             </td>
           </tr>
 
-          {/* Input box for new artwork description */}
+          {/* Input field to edit artwork description */}
           <tr>
             <td>
               <label htmlFor="artworkDescription">Artwork Description: </label>
@@ -98,8 +90,8 @@ console.log('log preset', detail.description);
             </td>
           </tr>
 
-          {/* calls editArtwork function */}
           <tr>
+            {/* Calls editArtwork function */}
             <td>
               <button className="save-button">
                 Save

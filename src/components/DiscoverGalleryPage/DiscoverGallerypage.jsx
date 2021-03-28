@@ -7,14 +7,17 @@ import DropdownNavCategory from '../Nav/DropdownNavCategory';
 
 import './GalleryPage.css';
 
-// 
+// Function fetches all artworks besides the logged in user
+// and displays it on the Discover Gallery Page
 function DiscoverGalleryPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // Grabs information from Global Redex Store
   const artworkList = useSelector(store => store.artwork);
   const user = useSelector((store) => store.user);
 
+  // Loads all artwork
   useEffect(() => {
     dispatch({
       type: 'DISCOVER_GALLERY_ARTWORK',
@@ -28,6 +31,8 @@ function DiscoverGalleryPage() {
         <h1>Art Galore</h1>
         <h2>Browse through some artworks from other artists!</h2>
 
+        {/* Displays a dropdown list of all other users 
+            with at least 1 artwork in their gallery */}
         {user.id && (
           <>
           <div>
@@ -37,6 +42,8 @@ function DiscoverGalleryPage() {
           </>
         )}
 
+        {/* Displays a dropdown list of all categories 
+            with at least 1 artwork in that category */}
         <>
         <div>
           <p>Sort By Category:</p>
@@ -44,9 +51,11 @@ function DiscoverGalleryPage() {
         </div>
         </>
 
+        {/* Displays artworks from all users 
+            onto the discover gallery page */}
         <section className="artwork">
             {
-              //making sure artworkList is populated before rendering
+              // Makes sure artworkList is populated
               artworkList && artworkList.length && 
               artworkList.map((artwork, i) => {
                   return (
@@ -54,20 +63,20 @@ function DiscoverGalleryPage() {
                     <div className="artworkdiv" key = {i}>
                       <img src={artwork.image} height="350px" weight = "250px " alt={artwork.username} 
                       onClick={() => history.push(`/details/${artwork.id}`)}/>
-                      
                     </div>
 
-                    <br></br>
 
+                    {/* Displays artwork title */}
                     <div>
                       <h3>{artwork.title}</h3>
                     </div>
 
-                    <br></br>
-
-                    <button onClick={() => history.push(`/details/${artwork.id}`)}>
-                      Details
-                    </button>
+                    {/* Button that takes user to the artwork details page */}
+                    <div>
+                      <button onClick={() => history.push(`/details/${artwork.id}`)}>
+                        Details
+                      </button>
+                    </div>
 
                   </>
                   );

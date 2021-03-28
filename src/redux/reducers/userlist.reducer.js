@@ -1,3 +1,4 @@
+// Used to store users that have artworks available from the Server to the dropdown
 const userListReducer = (state = {}, action) => {
     switch (action.type) {
       case 'SET_USER_LIST':

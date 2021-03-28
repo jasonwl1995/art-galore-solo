@@ -17,7 +17,7 @@ function ArtworkDetail() {
   const user = useSelector((store) => store.user);
   const userList = useSelector(store => store.userList);
 
-  // Load artwork details
+  // Load artwork details on page load
   useEffect(() => {
     dispatch({
       type: 'FETCH_ARTWORK_DETAIL',
@@ -92,6 +92,7 @@ function ArtworkDetail() {
         <h3>Date created: {detail.date}</h3>
       </section>
 
+      {/* Displays artwork theme */}
       <section>
         <p>Category: {detail.theme}</p>
       </section>
@@ -102,7 +103,7 @@ function ArtworkDetail() {
         <p>{detail.description}</p>
       </section>
 
-      {/* button that toggles like and unlike and adds artworks to like_log joint table */}
+      {/* Button that toggles like and unlike and adds artworks to like_log joint table */}
       {
         (Number(detail.favorite) > 0)? 
         <>

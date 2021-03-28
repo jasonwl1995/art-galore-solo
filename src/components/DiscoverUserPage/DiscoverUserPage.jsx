@@ -7,15 +7,19 @@ import DropdownNavCategory from '../Nav/DropdownNavCategory';
 
 import './GalleryPage.css';
 
+// Function fetches all artworks from a certain user
+// and displays it on the Discover Gallery Page
 function DiscoverUserPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
   const disUserId = params;
 
+  // Grabs information from Global Redex Store
   const artworkList = useSelector(store => store.artwork);
   const user = useSelector((store) => store.user);
 
+  // Loads all artwork from selected user
   useEffect(() => {
     dispatch({
       type: 'FETCH_USER_ARTWORK',
@@ -25,101 +29,63 @@ function DiscoverUserPage() {
     });
   }, []);
 
-
-//   const likeArtwork = (artworkid) => {
-//     dispatch({
-//       type: 'ADD_LIKE_ON_USERPAGE',
-//       payload: {
-//         artworkid: artworkid,
-//         userid: user.id,
-//         //need to pass the selected user from the drop-down list
-//         discover_userid: params.id,
-//       }
-//     });
-//  };
-
-//  const unlikeArtwork = (artworkid) => {
-//    dispatch({
-//      type: 'ADD_UNLIKE_ON_USERPAGE',
-//      payload: {
-//        artworkid: artworkid,
-//        userid: user.id,
-//         //need to pass the selected user from the drop-down list
-//        discover_userid: params.id,
-//      }
-//    });
-// };
-
-console.log('artworkList', artworkList);
-console.log('artworkList', artworkList.length);
 return(
   <div>
     <main>
+      
+      {/* Displays artist name */}
       <h1>{artworkList && artworkList.length &&
       artworkList[0].username}'s Gallery!</h1>
+
+      {/* Display artist introduction */}
       <h2>{artworkList && artworkList.length &&
       artworkList[0].intro}</h2>
 
-      <>
+      {/* Displays a dropdown list of all other users 
+          with at least 1 artwork in their gallery */}
       <div>
         <p>Search By Username:</p>
         <DropdownNav />
       </div>
-      </>
 
-      <>
+        {/* Displays a dropdown list of all categories 
+            with at least 1 artwork in that category */}
         <div>
           <p>Sort By Category:</p>
           <DropdownNavCategory discover_userId={disUserId.id}/>
         </div>
-      </>
 
-      <section className="artwork">
-          {
-            //making sure artworkList is populated before rendering
-            artworkList && artworkList.length && 
-            artworkList.map((artwork, i) => {
-                return (
-                  <>
-                  <div className="artworkdiv" key = {i}>
-                    <img src={artwork.image} height="350px" weight = "250px "alt={artwork.description} 
-                    onClick={() => history.push(`/details/${artwork.id}`)}/>
-                    
-                  </div>
-                  <br></br>
-                  <div>
-                    <h3>{artwork.title}</h3>
-                  </div>
-                  <br></br>
-                  <div>
-
-                  <button onClick={() => history.push(`/details/${artwork.id}`)}>
-                    Details
-                  </button>
-                    {/* <div>
-                        Likes: {artwork.favorite}
+        {/* Displays artworks from selected
+            users onto the discover users page */}
+        <section className="artwork">
+            {
+              // Makes sure artworkList is populated
+              artworkList && artworkList.length && 
+              artworkList.map((artwork, i) => {
+                  return (
+                    <>
+                    <div className="artworkdiv" key = {i}>
+                      <img src={artwork.image} height="350px" weight = "250px "alt={artwork.description} 
+                      onClick={() => history.push(`/details/${artwork.id}`)}/>
                     </div>
-                    {
 
-                          (artwork.favorite > 0)? 
-                          <>
-                          <button onClick = { (evt) => {unlikeArtwork(artwork.id)}}>
-                            UnLike
-                          </button>
-                          </> 
-                          : 
-                          <>
-                          <button onClick = { (evt) => {likeArtwork(artwork.id)}}>
-                            Like
-                          </button>
-                          </>
-                    }     */}
-                  </div>
-                </>
-                );
-            })              
-          }
-      </section>
+                    {/* Displays artwork title */}
+                    <div>
+                      <h3>{artwork.title}</h3>
+                    </div>
+
+                    {/* Button that takes user to the artwork details page */}
+                    <div>
+                      <button onClick={() => history.push(`/details/${artwork.id}`)}>
+                        Details
+                      </button>
+                    </div>
+
+                  </>
+                  );
+              })              
+            }
+        </section>
     </main>
   </div>
   );

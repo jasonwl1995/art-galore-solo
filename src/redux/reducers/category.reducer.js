@@ -1,3 +1,4 @@
+// Used to store category themes
 const categoryReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_CATEGORY_LIST':

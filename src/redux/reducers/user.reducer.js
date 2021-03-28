@@ -1,3 +1,6 @@
+// Used to Log in and store user from the Server
+// Used to store user details from the Server
+// Used to log out and remove user from store
 const userReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_USER':

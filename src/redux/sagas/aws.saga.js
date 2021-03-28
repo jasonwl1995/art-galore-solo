@@ -5,23 +5,16 @@ function* awsSaga(){
   yield takeLatest('POST_IMAGE_URL', postImageUrl)
 }
 
+// POST an image url from AWS to Database
 function* postImageUrl(action){
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     };
-
-    const data = {
-      aws: action.payload
-    }
-
-    console.log('POSTING IMAGE URL!');
+    const data = { aws: action.payload}
     const response = yield axios.post('/api/aws', data, config);
     console.log(response);
-    
-    //AFTER POST COMES BACK SUCCESSFUL, DO A GET
-    
   } catch (error) {
     console.log('Image URL POST failed: ', error);
   }

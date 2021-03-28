@@ -4,42 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link, useParams } from 'react-router-dom';
 
 import ImageUpload from '../ImageUpload/ImageUpload';
-// import ImageUpload from '../ImageUpload/ImageUpload';
 
+// Function renders passed user details to be edited
 function EditUser() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
   const userId = params;
 
-  /* Grab data from Redux store */
+  // Grabs information from Global Redex Store
   const user = useSelector((store) => store.user);
-
   const pfpUrl = useSelector ((store) => store.awsPFP);
-  // const category = useSelector((store) => store.category);
 
-  /* Local state variables used for capturing form input */
+  // Local state variables used for capturing form input 
   const [editUsername, setEditUsername] = useState(user.username);
-  // const [editPFP, setEditPFP] = useState(user.pfp);
   const [editIntro, setEditIntro] = useState(user.intro);
-  // const [editAddress, setEditAddress] = useState(user.address);
 
-  // const [editUsername, setEditUsername] = useState('');
-  // const [editPFP, setEditPFP] = useState('');
-  // const [editIntro, setEditIntro] = useState('');
-  // const [editAddress, setEditAddress] = useState('');
-  
-  //   useEffect(() => {
-  //   dispatch({
-  //     type: 'FETCH_USER_DETAIL',
-  //     payload: {
-  //       userId: user.id
-  //       }
-  //   });
-  // }, []);
-
-
-
+  // Function handle of on click edit button
   const editUser = (event) => {
     // Keep page from refreshing on form submission
     event.preventDefault();
@@ -52,14 +33,13 @@ function EditUser() {
         username: editUsername,
         pfp: pfpUrl,
         intro: editIntro,
-        // address: editAddress
       },
     });
-
     // Navigate to profile page
     history.push('/user');
   };
 
+  // Function to set PFP on cancel
   const onCancel = (event) => {
     event.preventDefault();
     dispatch({
@@ -75,6 +55,8 @@ function EditUser() {
 
       <form onSubmit={editUser}>
         <table>
+
+          {/* Input field to edit artist username */}
           <tr>
             <td>
               <label htmlFor="username">Username: </label>
@@ -90,6 +72,7 @@ function EditUser() {
             </td>
           </tr>
 
+          {/* Input field to edit artist profile picture */}
           <tr>
             <td>
             <label htmlFor="pfpImage">Edit Profile Picture: </label>
@@ -99,30 +82,7 @@ function EditUser() {
             </td>
           </tr>
 
-          {/* <tr>
-            <td>
-              <label htmlFor="userPFP">Profile Picture URL: </label>
-            </td>
-            <td>
-              <input
-              name="userPFP"
-              type="text"
-              placeholder="Profile Picture"
-              value={editPFP}
-              onChange={(event) => setEditPFP(event.target.value)}
-              />
-            </td>
-          </tr> */}
-
-          {/* <tr>
-            <td>
-            <label htmlFor="editPFP">Profile Picture: </label>
-            </td>
-            <td>
-              <ImageUpload /> 
-            </td>
-          </tr> */}
-
+          {/* Input field to edit artist introduction */}
           <tr>
             <td>
               <label htmlFor="userIntro">Gallery Introduction: </label>
@@ -138,10 +98,12 @@ function EditUser() {
           </tr>
 
           <tr>
+            {/* Calls editUser function */}
             <td>
               <button className="save-button">Save</button>
-              {/* <input type="submit" value="Save" /> */}
             </td>
+
+            {/* Cancels edits and takes user back to the user Profile Page */}
             <td>
               <button onClick = {onCancel}>
                 Cancel

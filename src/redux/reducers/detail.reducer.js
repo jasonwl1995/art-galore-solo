@@ -1,3 +1,4 @@
+// Used to store a single artworks details including category
 const detailReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_DETAIL':

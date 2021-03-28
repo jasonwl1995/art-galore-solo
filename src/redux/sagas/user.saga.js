@@ -2,6 +2,7 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // worker Saga: will be fired on "FETCH_USER" actions
+// GET logged in user
 function* fetchUser() {
   try {
     const config = {
@@ -25,6 +26,7 @@ function* fetchUser() {
 }
 
 // worker Saga: will be fired on "FETCH_USER" actions
+// GET list of users with artworks to display in dropdown list
 function* fetchUserList() {
   try {
     const response = yield axios.get('/api/user/list');
@@ -35,6 +37,7 @@ function* fetchUserList() {
   }
 }
 
+// GET user details from DB
 function* fetchUserDetails(action){
   console.log('fetching user detail', action.payload);
   try{
@@ -49,11 +52,10 @@ function* fetchUserDetails(action){
   }
 }
 
+// PUT updated user info into DB
 function* editUser(action) {
-  console.log('editing user', action.payload);
   try {
     yield axios.put('/api/user/', action.payload);
-    console.log("update user Success");
     yield put({
       type: 'FETCH_USER_DETAIL',
       payload: {
@@ -62,10 +64,10 @@ function* editUser(action) {
     })
   } catch (err) {
     console.log(' SAGA ERROR EDITUSER PUT', err);
-    // yield put({ type: 'EDIT_FAILED' });
   }
 }
 
+// Creates userSaga Generator function
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('FETCH_USER_LIST', fetchUserList);
