@@ -31,14 +31,12 @@ function DiscoverGalleryPage() {
       <main>
         <h1>Art Galore</h1>
         <h2>Browse through some artworks from other artists!</h2>
-        {user.id && (
-          <>
+        
           <div>
             <p>Search By Username:</p>
             <DropdownNav />
           </div>
-          </>
-        )}
+
         <section className="artwork">
             {
               //making sure artworkList is populated before rendering
