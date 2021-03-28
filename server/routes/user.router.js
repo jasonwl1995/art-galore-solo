@@ -67,7 +67,7 @@ pool
 });
 
 // retrieve user details
-router.get('/detail/:id', (req, res) => {
+router.get('/detail/:id', rejectUnauthenticated, (req, res) => {
     let userID = req.params.id;
     //let queryText = `select * from artwork order by user_id asc`;
     //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
@@ -90,7 +90,7 @@ router.get('/detail/:id', (req, res) => {
 //this is to get artwork detail
 
 //this is to handle put request EDIT/UPDATE
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, (req, res) => {
   console.log(req.body);
     let newData = req.body;
     //console.log('artwork to update:', newData);

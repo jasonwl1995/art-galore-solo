@@ -6,6 +6,8 @@ import detail from './detail.reducer';
 import category from './category.reducer';
 import userList from './userlist.reducer';
 import aws from './aws.reducer';
+import awsPFP from './awspfp.reducer';
+import dpCategory from './dpcategory.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -22,6 +24,8 @@ const rootReducer = combineReducers({
   category,
   userList,
   aws,
+  awsPFP,
+  dpCategory,
 });
 
 export default rootReducer;

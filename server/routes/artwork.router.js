@@ -1,29 +1,22 @@
 const express = require('express');
-// const {
-//   rejectUnauthenticated,
-// } = require('../modules/authentication-middleware');
-// const encryptLib = require('../modules/encryption');
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
-
 const router = express.Router();
 
-// this is to get artworks from others except the user
-router.get('/discovergallery/:id', (req, res) => {
+// GET all images in DB to display on DiscoverGalleryPage EXCEPT logged in user
+router.get('/discovergallery/:id', rejectUnauthenticated, (req, res) => {
   
     let userID = req.params.id;
     console.log('discover server router:', userID);
-    //let queryText = `select * from artwork order by user_id asc`;
-    //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
     const queryText = `SELECT art.*, cat.theme, usr.username, 
                       (SELECT count(1) FROM like_log ll WHERE ll.user_id = $1 AND ll.artwork_id = art.id) AS favorite
                       FROM artwork art, category cat, "user" usr WHERE art.category_id = cat.id AND art.user_id = usr.id AND usr.id <> $2 `;
-  
     pool
       .query(queryText, [userID, userID])
       .then((result) => {
-          //if (process.env.DEBUG) 
-          //    console.log('artwork list is:', result.rows);
           res.send(result.rows);
       })
       .catch((err) => {
@@ -33,20 +26,16 @@ router.get('/discovergallery/:id', (req, res) => {
   });
 
 //this is to get artworks for one user (artisit)
-router.get('/:id', (req, res) => {
-  
+router.get('/:id', rejectUnauthenticated, (req, res) => {  
     let userID = req.params.id;
-    //let queryText = `select * from artwork order by user_id asc`;
-    //retrieve user name, category theme and whether or not an artwork is my like or not (favorite =0 unlike,  >0 like)
+
     const queryText = `SELECT art.*, cat.theme, usr.username, 
                       (SELECT count(1) FROM like_log ll WHERE ll.user_id = usr.id AND ll.artwork_id = art.id) AS favorite
-                      FROM artwork art, category cat, "user" usr WHERE art.category_id = cat.id AND art.user_id = usr.id AND usr.id = $1 `;
-  
+                      FROM artwork art, category cat, "user" usr WHERE art.category_id = cat.id AND art.user_id = usr.id AND usr.id = $1`;
+
     pool
       .query(queryText, [userID])
       .then((result) => {
-          //if (process.env.DEBUG) 
-          //    console.log('artwork list is:', result.rows);
           res.send(result.rows);
       })
       .catch((err) => {
@@ -55,48 +44,8 @@ router.get('/:id', (req, res) => {
       });
   });
 
-
-// //this is to update the Like 
-// router.put('/like', (req, res) => {
-  
-//     let data = req.body;
-//     console.log('like server router:', data);
-//     const queryText = `insert into like_log (user_id, artwork_id) values ($1, $2)`;
-  
-//     pool
-//       .query(queryText, [data.userid, data.artworkid])
-//       .then((result) => {
-//           res.send(result.rows);
-//       })
-//       .catch((err) => {
-//           if (process.env.DEBUG) 
-//               console.log('like artwork request failed: ', err);
-//         res.sendStatus(500);
-//       });
-//   });
-
-//   //this is to update the unLike 
-// router.put('/unlike', (req, res) => {
-  
-//     let data = req.body;
-//     console.log('unlike server router:', data);
-//     const queryText = `delete from like_log where user_id = $1 and artwork_id = $2`;
-  
-//     pool
-//       .query(queryText, [data.userid, data.artworkid])
-//       .then((result) => {
-//           res.send(result.rows);
-//       })
-//       .catch((err) => {
-//           if (process.env.DEBUG) 
-//               console.log('unlike artwork request failed: ', err);
-//         res.sendStatus(500);
-//       });
-//   });
-
-
   //this is to get artwork detail
-router.get('/:userid/:artworkid', (req, res) => {
+router.get('/:userid/:artworkid', rejectUnauthenticated, (req, res) => {
     const artworkID = req.params.artworkid;
     const userID = req.params.userid;
     //let queryText = `select * from artwork order by user_id asc`;
@@ -122,7 +71,7 @@ router.get('/:userid/:artworkid', (req, res) => {
 //this is to get artwork detail
 
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
   
     let artworkID = req.params.id;
     console.log('artwork to delete:', artworkID);
@@ -159,7 +108,7 @@ router.delete('/:id', (req, res) => {
   });
    
 //this is to handle put request
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, (req, res) => {
   console.log(req.body);
     let newData = req.body;
     //console.log('artwork to update:', newData);
@@ -177,7 +126,7 @@ router.put('/', (req, res) => {
   
   
 //handle adding artwork request
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     //new artwork
     let newArtwork = req.body;
 

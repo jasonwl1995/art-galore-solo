@@ -2,6 +2,8 @@ const detailReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_DETAIL':
       return action.payload;
+    case 'UNSET_ARTWORK_DETAIL':
+      return {};
     default:
       return state;
   }

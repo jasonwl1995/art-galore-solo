@@ -62,6 +62,7 @@ function* editUser(action) {
     })
   } catch (err) {
     console.log(' SAGA ERROR EDITUSER PUT', err);
+    // yield put({ type: 'EDIT_FAILED' });
   }
 }
 

@@ -4,9 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link, useParams } from 'react-router-dom';
 import ImageUpload from '../ImageUpload/ImageUpload';
 
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-
 function EditArtworkPage() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -21,11 +18,10 @@ console.log('artworkID', artworkId);
 
   /* Local state variables used for capturing form input */
   const [editTitle, setEditTitle] = useState(detail.title);
-  // const [editImage, setEditImage] = useState(detail.image);
-  // const [editDate, setEditDate] = useState('');
   const [editDescription, setEditDescription] = useState(detail.description);
-  // const [editCategory, setEditCategory] = useState(artwork.category);
 
+console.log('log preset', detail.title);
+console.log('log preset', detail.description);
   // const [editTitle, setEditTitle] = useState('');
   // const [editImage, setEditImage] = useState('');
   // const [editDate, setEditDate] = useState('');
@@ -65,13 +61,11 @@ console.log('artworkID', artworkId);
   return (
     <section className="edit-page">
       <h2>Edit Artwork</h2>
-      {/* <img
-        src={movie.poster}
-        alt={movie.title}
-        className="details-poster-size"
-      /> */}
+      <img src={detail.image} alt={detail.description}/>
+
       <form onSubmit={editArtwork}>
         <table>
+
           <tr>
             <td>
               <label htmlFor="artworkTitle">Artwork Title: </label>
@@ -83,50 +77,12 @@ console.log('artworkID', artworkId);
               placeholder="Artwork Title"
               value={editTitle}
               onChange={(event) => setEditTitle(event.target.value)}
+              required
               />
             </td>
           </tr>
-{/* 
-          <tr>
-            <td>
-            <label htmlFor="artworkImage">Artwork Image: </label>
-            </td>
-            <td>
-              <ImageUpload />
-            </td>
-          </tr>
 
-          <tr>
-            <td>
-              <label htmlFor="artworkImage">Artwork Thumbnail URL: </label>
-            </td>
-            <td>
-              <input
-              name="artworkImage"
-              type="text"
-              placeholder="Artwork Image URL"
-              value={editImage}
-              onChange={(event) => setEditImage(event.target.value)}
-              />
-            </td>
-          </tr> */}
-
-          {/* <tr>
-            <td>
-              <label htmlFor="artworkDate">Artwork Date: </label>
-            </td>
-            <td>
-              <DatePicker required selected={editDate} placeholderText="Select a Date" onChange={date => setEditDate(date)} />
-              <input
-              name="artworkDate"
-              type="text"
-              placeholder="Artwork Date"
-              value={editDate}
-              onChange={(event) => setEditDate(event.target.value)}
-              /> 
-            </td>
-          </tr> */}
-
+          {/* Input box for new artwork description */}
           <tr>
             <td>
               <label htmlFor="artworkDescription">Artwork Description: </label>
@@ -137,34 +93,20 @@ console.log('artworkID', artworkId);
               placeholder="Artwork Description:"
               value={editDescription}
               onChange={(event) => setEditDescription(event.target.value)}
+              required
               />
             </td>
           </tr>
 
-        {/* Movie Genre */}
-        {/* <div>
-          <label htmlFor="movieGenre">Genre:</label>
-          <select
-            name="movieGenre"
-            id="movieGenre"
-            value={editGenre}
-            onChange={(event) => setEditGenre(event.target.value)}
-          >
-            <option value="">Select a Genre</option>
-            {genres.map((genre, i) => {
-              return (
-                <option key={i} value={genre.id}>
-                  {genre.name}
-                </option>
-              );
-            })}
-          </select>
-        </div> */}
+          {/* calls editArtwork function */}
           <tr>
             <td>
-              <button className="save-button">Save</button>
-              {/* <input type="submit" value="Save" /> */}
+              <button className="save-button">
+                Save
+              </button>
             </td>
+
+            {/* Cancels edits and takes user back to the artwork detail page */}
             <td>
               <button onClick = {() => history.push(`/mydetails/${artworkId.id}`)}>
                 Cancel

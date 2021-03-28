@@ -1,24 +1,23 @@
+/* Import Libraries */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory, Link} from 'react-router-dom';
 
+// Function fetches artwork details from the database
+// and displays it on the Artwork Details page
 function ArtworkDetail() {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
   const artworkId = params;
-  console.log('artwork id', artworkId);
 
-  // data from redux
+  // Grabs information from Global Redex Store
   const detail = useSelector(store => store.detail);
   const artwork = useSelector(store => store.artwork);
   const user = useSelector((store) => store.user);
   const userList = useSelector(store => store.userList);
-  // const userList = useSelector(store => store.userList);
 
-  // on load, get(fetch)
-  // Display details on the page
-  console.log("params", params);
+  // Load artwork details
   useEffect(() => {
     dispatch({
       type: 'FETCH_ARTWORK_DETAIL',
@@ -29,37 +28,36 @@ function ArtworkDetail() {
     });
   }, []);
 
+  // Function to send images user liked to the Likes page
   const likeDetails = () => {
     dispatch({
       type: 'LIKE_ARTWORK_DETAIL',
       payload: {
         artworkId: artworkId.id,
         userId: user.id,
-        // discover_userid: params.id,  //this is wrong
       }
     });
  };
 
- const unlikeDetails = () => {
+  // Function to remove the liked image from the Likes page
+  const unlikeDetails = () => {
     dispatch({
       type: 'UNLIKE_ARTWORK_DETAIL',
       payload: {
         artworkId: artworkId.id,
         userId: user.id,
-        // discover_userid: params.id,  //this is wrong
       }
     });
  };
 
+  // Handler when user clicks on artist name to go their gallery
   const clickHandler = (evt) => {
-    //go to discover user page
-
     let newUser = evt.target.value;
     userChange(newUser);
-
   };
-  const userChange = (newUser) => {
 
+  // Gets user id and goes to their gallery page
+  const userChange = (newUser) => {
     dispatch({
       type: 'DISCOVER_USER_ARTWORK',
       payload: {
@@ -70,30 +68,26 @@ function ArtworkDetail() {
     history.push(`/discoveruser/${detail.user_id}`);
   }
   
-
-  console.log("detail", detail);
   return (
     <div>
+      {/* Displays artwork image */}
       <img src={detail.image} alt={detail.title} />
 
+      {/* Displays artwork title */}
       <section>
         <h2>{detail.title}</h2>
       </section>
 
+      {/* Displays artist name */}
       <section>
-        {/* <Link onClick={clickHandler}> */}
-        
         <h3>Artist: 
-          {/* <Link>
+          <button onClick = {clickHandler}>
             {detail.username}
-          </Link> */}
-        {/* <button onClick = {() => history.push(`/discover/${detail.user_id}`)}> */}
-        <button onClick = {clickHandler}>
-          {detail.username}
-        </button>
+          </button>
         </h3>
       </section>
 
+      {/* Displays artwork date created */}
       <section>
         <h3>Date created: {detail.date}</h3>
       </section>
@@ -102,31 +96,29 @@ function ArtworkDetail() {
         <p>Category: {detail.theme}</p>
       </section>
 
+      {/* Displays artwork description */}
       <section>
         <p>Description:</p>
         <p>{detail.description}</p>
       </section>
 
+      {/* button that toggles like and unlike and adds artworks to like_log joint table */}
       {
-      (Number(detail.favorite) > 0)? 
-      <>
-      <button className="delete-button" onClick={unlikeDetails}>
-        Unlike
-      </button>
-      </>
-      :
-      <>
-      <button className="edit-button" onClick={likeDetails}>
-        Like
-      </button>
-      </>
+        (Number(detail.favorite) > 0)? 
+        <>
+          <button className="delete-button" onClick={unlikeDetails}>
+            Unlike
+          </button>
+        </>
+        :
+        <>
+          <button className="edit-button" onClick={likeDetails}>
+            Like
+          </button>
+        </>
       }
-      
 
-      {/* <button onClick = {() => likeArtwork{artwork.id}}>
-        Like
-      </button> */}
-
+      {/* Button that takes user back to discover gallery page */}
       <button onClick = {() => history.push('/discover')}>
         Back to Discover
       </button>

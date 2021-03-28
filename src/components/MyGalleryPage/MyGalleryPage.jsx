@@ -1,3 +1,4 @@
+/* Import Libraries */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -18,8 +19,8 @@ function MyGalleryPage() {
     });
   }, []);
 
-  const editArtwork = (artworkid) => {
-    history.push(`/edit/${artworkid}`);
+  const artworkDetails = (artworkid) => {
+    history.push(`/mydetails/${artworkid}`);
   };
 
   const deleteArtwork = (artworkid) => {
@@ -59,8 +60,8 @@ function MyGalleryPage() {
                         </div>
                         <br></br>
                         <div>
-                          <button onClick = { (evt) => {editArtwork(artwork.id)}}>
-                            Edit
+                          <button onClick = { (evt) => {artworkDetails(artwork.id)}}>
+                            Details
                           </button>
                           <button onClick = { (evt) => {deleteArtwork(artwork.id)}}>
                             Delete

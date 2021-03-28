@@ -1,7 +1,9 @@
+/* Import Libraries */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import DropdownNav from '../Nav/DropdownNav';
+import DropdownNavCategory from '../Nav/DropdownNavCategory';
 
 import './GalleryPage.css';
 
@@ -17,7 +19,9 @@ function DiscoverUserPage() {
   useEffect(() => {
     dispatch({
       type: 'FETCH_USER_ARTWORK',
-      payload: { userid: disUserId.id }
+      payload: { 
+        userid: disUserId.id 
+        }
     });
   }, []);
 
@@ -62,6 +66,13 @@ return(
         <DropdownNav />
       </div>
       </>
+
+      {/* <>
+        <div>
+          <p>Sort By Category:</p>
+          <DropdownNavCategory discover_userId={disUserId.id}/>
+        </div>
+      </> */}
 
       <section className="artwork">
           {

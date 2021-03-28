@@ -1,7 +1,7 @@
 const express = require('express');
-// const {
-//   rejectUnauthenticated,
-// } = require('../modules/authentication-middleware');
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 // const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
@@ -9,7 +9,7 @@ const userStrategy = require('../strategies/user.strategy');
 const router = express.Router();
 
 //this is to get like Artworks
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
   
   let userID = req.params.id;
   console.log('querylikes server router:', userID);
@@ -33,7 +33,7 @@ router.get('/:id', (req, res) => {
 });
 
 //this is to like the artwork
-router.put('/like', (req, res) => {
+router.put('/like', rejectUnauthenticated, (req, res) => {
     let data = req.body;
     console.log('like server router:', data);
     const queryText = `INSERT INTO like_log (user_id, artwork_id) VALUES ($1, $2)`;
@@ -49,7 +49,7 @@ router.put('/like', (req, res) => {
   });
 
     //this is to update the unLike 
-router.put('/unlike', (req, res) => {
+router.put('/unlike', rejectUnauthenticated, (req, res) => {
   
   let data = req.body;
   console.log('unlike server router:', data);

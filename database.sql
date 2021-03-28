@@ -9,7 +9,7 @@ CREATE TABLE "user" (
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "pfp" VARCHAR (255),
-    "user_intro" VARCHAR (1000),
+    "intro" VARCHAR (1000),
     "address" VARCHAR (255),
     "city" VARCHAR (255),
     "state" VARCHAR (255),
@@ -44,3 +44,18 @@ CREATE TABLE "category" (
 --  "artwork_id" INT REFERENCES "artwork" NOT NULL,
 --  "category_id" INT REFERENCES "category" NOT NULL
 --);
+
+
+
+INSERT INTO "category" ("theme")
+VALUES
+('Abstract'), ('Animals and Wildlife'), ('Anime and Manga'), ('Architechtural'), ('Automotive');
+-- ('Abstract'), ('Abstract'), ('Abstract'), ('Abstract'), ('Abstract'),
+-- ('Abstract'), ('Abstract'), ('Abstract'), ('Abstract'), ('Abstract'), 
+-- ('Abstract'), ('Abstract'), ('Abstract'), ('Abstract'), ('Abstract'), 
+
+--SELECT id, username, intro, address, city, state, zip, (SELECT COUNT(1) FROM artwork WHERE artwork.user_id = "user".id) AS artwork_count FROM "user"
+--ORDER BY username ASC
+
+                      
+                      
