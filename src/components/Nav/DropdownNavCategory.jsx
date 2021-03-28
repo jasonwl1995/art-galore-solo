@@ -15,7 +15,7 @@ function DropdownNavCategory(props) {
   console.log("from nav category, params is", props);
 
 
-  // (STRETCH TO ADD DROP DOWN USER LIST)
+  // (STRETCH TO ADD DROP DOWN CATEGORY LIST)
   //get user list to populate drop-down list
    useEffect(() => {
      dispatch({
