@@ -15,7 +15,7 @@ function EditUser() {
   /* Grab data from Redux store */
   const user = useSelector((store) => store.user);
 
-  const pfpUrl = useSelector ((store) => store.aws);
+  const pfpUrl = useSelector ((store) => store.awsPFP);
   // const category = useSelector((store) => store.category);
 
   /* Local state variables used for capturing form input */
@@ -60,6 +60,15 @@ function EditUser() {
     history.push('/user');
   };
 
+  const onCancel = (event) => {
+    event.preventDefault();
+    dispatch({
+      type: 'SET_PFP_URL',
+      payload: user.pfp
+    });
+    history.push('/user')
+  }
+
   return (
     <section className="edit-user">
       <h2>Edit User</h2>
@@ -86,7 +95,7 @@ function EditUser() {
             <label htmlFor="pfpImage">Edit Profile Picture: </label>
             </td>
             <td>
-              <ImageUpload />
+              <ImageUpload page="AddProfilePicture"/>
             </td>
           </tr>
 
@@ -134,7 +143,7 @@ function EditUser() {
               {/* <input type="submit" value="Save" /> */}
             </td>
             <td>
-              <button onClick = {() => history.push('/user')}>
+              <button onClick = {onCancel}>
                 Cancel
               </button>
             </td>

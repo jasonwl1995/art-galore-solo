@@ -10,7 +10,7 @@ const router = express.Router();
 
 
 //can we pass 2 params in req
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
 
     console.log("processing discover user get request");
     //make sure both logged in user id and selected user id are passed in from query pamater list
@@ -49,7 +49,7 @@ router.get('/', (req, res) => {
 
 //can we pass multiple params in req??
 //this requires artwork id, logged-in userid and discovered userid
-router.get('/detail', (req, res) => {
+router.get('/detail', rejectUnauthenticated, (req, res) => {
 
     console.log("processing discover user get request");
     //make sure both logged in user id and selected user id are passed in from query pamater list

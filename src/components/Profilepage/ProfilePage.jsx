@@ -1,4 +1,4 @@
-
+/* Import Libraries */
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useEffect } from 'react';

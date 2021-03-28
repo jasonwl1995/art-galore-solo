@@ -1,3 +1,4 @@
+/* Import Libraries */
 import React, { useEffect } from 'react';
 import {
   HashRouter as Router,
@@ -5,9 +6,9 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
 
+// Import Default components
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
@@ -19,15 +20,15 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
 import './App.css';
+
+// Import created components
 import DiscoverGalleryPage from '../DiscoverGalleryPage/DiscoverGalleryPage';
 import MyGalleryPage from '../MyGalleryPage/MyGalleryPage';
 import EditArtworkPage from '../EditArtworkPage/EditArtworkPage';
 import MyArtworkDetail from '../MyArtworkDetail/MyArtworkDetail';
 import ArtworkDetail from '../ArtworkDetail/ArtworkDetail';
 import DiscoverUserPage from '../DiscoverUserPage/DiscoverUserPage';
-// import EditUserPage from '../EditUserPage/EditUserPage';
 import EditUser from '../EditUser/EditUser';
 import LikesGalleryPage from '../LikesGalleryPage/LikesGalleryPage';
 
@@ -147,10 +148,6 @@ function App() {
           <ProtectedRoute exact path="/details/:id">
             <ArtworkDetail />
           </ProtectedRoute>
-
-          {/* <ProtectedRoute exact path="/edituser/:id">
-            <EditUserPage />
-          </ProtectedRoute> */}
 
           <ProtectedRoute exact path="/edituser/:id">
             <EditUser />

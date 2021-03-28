@@ -1,10 +1,13 @@
+/* Import Libraries */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import DropdownNav from '../Nav/DropdownNav';
+import DropdownNavCategory from '../Nav/DropdownNavCategory';
 
 import './GalleryPage.css';
 
+// 
 function DiscoverGalleryPage() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -19,23 +22,27 @@ function DiscoverGalleryPage() {
     });
   }, []);
 
-  // const likeArtwork = ({artwork.id}) => {
-  //   dispatch({
-  //     type: 'ADD_LIKE',
-  //     payload: { artwork.id }
-  //   });
-  // };
-
   return(
     <div>
       <main>
         <h1>Art Galore</h1>
         <h2>Browse through some artworks from other artists!</h2>
-        
+
+        {user.id && (
+          <>
           <div>
             <p>Search By Username:</p>
             <DropdownNav />
           </div>
+          </>
+        )}
+
+        <>
+        <div>
+          <p>Sort By Category:</p>
+          <DropdownNavCategory discover_userId="all"/>
+        </div>
+        </>
 
         <section className="artwork">
             {
@@ -49,36 +56,18 @@ function DiscoverGalleryPage() {
                       onClick={() => history.push(`/details/${artwork.id}`)}/>
                       
                     </div>
+
                     <br></br>
+
                     <div>
                       <h3>{artwork.title}</h3>
                     </div>
+
                     <br></br>
 
                     <button onClick={() => history.push(`/details/${artwork.id}`)}>
                       Details
                     </button>
-
-                    {/* <div>
-
-                      <div>
-                          Likes: {artwork.favorite}
-                      </div>
-
-                            (artwork.favorite > 0)? 
-                            <>
-                             <button onClick = { (evt) => {unlikeArtwork(artwork.id)}}>
-                              UnLike
-                            </button>
-                            </> 
-                            : 
-                            <>
-                             <button onClick = { (evt) => {likeArtwork(artwork.id)}}>
-                              Like
-                            </button>
-                            </>
-                      }    
-                    </div> */}
 
                   </>
                   );

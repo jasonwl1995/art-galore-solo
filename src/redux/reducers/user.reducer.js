@@ -6,6 +6,8 @@ const userReducer = (state = {}, action) => {
       return action.payload;
     case 'UNSET_USER':
       return {};
+    // case 'EDIT_FAILED':
+    //   return "Oops! That didn't work. The username might already be taken. Try again!";
     default:
       return state;
   }
