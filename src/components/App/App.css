@@ -32,7 +32,7 @@ Button
   border-color: #014041;
   border-width: 1px 1px 3px;
   border-radius: 4px;
-  background-color: #00acb0;
+  background-color: #ba000d;
   color: #f8f8f8;
   font-size: 1.1rem;
   outline: 0;
@@ -109,4 +109,73 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+.artworkCard {
+  width: 20%;
+  height: 20%;
+  background-color: #e1bee7;
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.artworkCard:hover {
+  box-shadow: 6px 6px 6px rgb(94, 94, 94);
+  transition: .2s;
+}
+
+.profileCard {
+  width: 80%;
+  height: 10%;
+  background-color: #e1bee7;
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.categoryCard {
+  width: 20%;
+  height: 65px;
+  background-color: #e1bee7;
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.detailsCard {
+  width: 80%;
+  height: 10%;
+  background-color: #e1bee7;
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.logCard {
+  width: 80%;
+  height: 10%;
+  background-color: #e1bee7;
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.userCard {
+  width: 80%;
+  height: 65px;
+  background-color: #e1bee7;
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }

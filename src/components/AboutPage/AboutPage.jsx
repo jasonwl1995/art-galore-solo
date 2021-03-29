@@ -1,4 +1,6 @@
 import React from 'react';
+import { Typography } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 
 // This is one of our simplest components
 // It doesn't have local state,
@@ -7,9 +9,11 @@ import React from 'react';
 
 function AboutPage() {
   return (
-    <div className="container">
-      <div>
-          <p>
+    <main>
+    <Box align="center" >
+    <Box className="profileCard" border={1}>
+      <Typography variant="body1">
+        <Box align="center" lineHeight={2}>
             Ever pick up a hobby and create pieces of artwork that you just want to organize 
             and display your creations but not sure how to? Whether its pictures you took, or 
             paintings/drawings you made, or even just cute photos of your pets, you can use 
@@ -20,9 +24,11 @@ function AboutPage() {
             app to use, especially when you have many items to share, you can categorize your 
             work for users to find exactly what they are interested in and create an easier 
             viewing media for your audience.
-          </p>
-      </div>
-    </div>
+        </Box>
+      </Typography>
+    </Box>
+    </Box>
+    </main>
   );
 }
 

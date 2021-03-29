@@ -29,7 +29,7 @@ router.get('/discovergallery/:id', rejectUnauthenticated, (req, res) => {
 router.get('/:id', rejectUnauthenticated, (req, res) => {  
     let userID = req.params.id;
 
-    const queryText = `SELECT art.*, cat.theme, usr.username, 
+    const queryText = `SELECT art.*, cat.theme, usr.username, usr.intro,
                       (SELECT count(1) FROM like_log ll WHERE ll.user_id = usr.id AND ll.artwork_id = art.id) AS favorite
                       FROM artwork art, category cat, "user" usr WHERE art.category_id = cat.id AND art.user_id = usr.id AND usr.id = $1`;
 

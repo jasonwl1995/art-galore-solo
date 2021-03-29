@@ -32,6 +32,19 @@ import DiscoverUserPage from '../DiscoverUserPage/DiscoverUserPage';
 import EditUser from '../EditUser/EditUser';
 import LikesGalleryPage from '../LikesGalleryPage/LikesGalleryPage';
 
+// MATERIAL-UI IMPORTS
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import  CssBaseLine from '@material-ui/core/CssBaseLine';
+
+const appTheme = createMuiTheme({
+  palette: {
+    background: {
+      default: "#212121",
+    }
+  }
+});
+
+
 function App() {
   const dispatch = useDispatch();
 
@@ -46,6 +59,8 @@ function App() {
   }, [dispatch]);
 
   return (
+    <ThemeProvider theme={appTheme}>
+    <CssBaseLine />
     <Router>
       <div>
         <Nav />
@@ -161,6 +176,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </ ThemeProvider>
   );
 }
 

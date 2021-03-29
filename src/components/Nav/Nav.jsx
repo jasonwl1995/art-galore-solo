@@ -7,6 +7,9 @@ import {useSelector} from 'react-redux';
 import DropdownNav from './DropdownNav';
 import DropdownNavCategory from './DropdownNavCategory';
 
+import { Typography } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+
 function Nav() {
   const user = useSelector((store) => store.user);
 
@@ -59,10 +62,18 @@ function Nav() {
 
         {user.id && (
           <>
-          <div>
+          <Box align="center" >
+            <Typography variant="body1">
+              <Box lineHeight={2} border={1} borderRadius={16} className="userCard">
+                Sort By User: 
+                <DropdownNav/>
+              </Box>
+            </Typography>
+          </Box>
+          {/* <div>
             <p>Select By User:</p>
             <DropdownNav />
-          </div>
+          </div> */}
           </>
         )}
         {/* {user.id && (

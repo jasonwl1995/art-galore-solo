@@ -1,11 +1,12 @@
 .nav {
   /* flex box layout */
   display: flex;
+  height: 150px;
   justify-content: space-between;
   align-items: center;
 
   margin: 0 0 30px;
-  background-color: #00acb0;
+  background-color: #ce93d8;
   overflow: hidden;
 }
 
@@ -23,12 +24,13 @@
 
 .navLink {
   display: inline-block;
-  color: #f2f2f2;
-  background-color: #00acb0;
+  color: #212121;
+  background-color: #ce93d8;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
   font-size: 15px;
+  font-weight: bold;
 
   /* these last two make the logout button in
   the nav bar look like another link */
@@ -38,5 +40,5 @@
 }
 
 .navLink:hover {
-  background-color: #008183;
+  background-color: #ba68c8;
 }
