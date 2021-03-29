@@ -12,15 +12,19 @@ function DropdownNav() {
   const userList = useSelector(store => store.userList);
 
   // Get user list to populate drop-down list
-   useEffect(() => {
-     dispatch({
-       type: 'FETCH_USER_LIST'
-     });
-   }, []);
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_USER_LIST'
+    });
+  }, []);
 
   const handleChange = (evt) => {
     let newUser = evt.target.value;
+    if (newUser === '-1'){
+      history.push(`/discover`);}
+    else {
     userChange(newUser);
+    }
   };
 
   const userChange = (newUser) => {
@@ -31,6 +35,14 @@ function DropdownNav() {
         discover_userid: newUser,
       }
     });
+
+    dispatch({
+      type: 'FETCH_ACTIVE_CATEGORY_BY_USER',
+      payload: {
+        userId: user.id,
+        discover_userId: newUser,
+      }
+    })
     // Goes to discover user page once selected a user
     history.push(`/discoveruser/${newUser}`);
   }
@@ -45,7 +57,7 @@ function DropdownNav() {
         >
 
         {/* Dropdown list of users */}
-        <option key="-1" value="">--- Select A User ---</option>
+        <option key="-1" value="-1">--- Select A User ---</option>
         {
             userList && userList.length && userList.map((usr, i) => {
                 return (

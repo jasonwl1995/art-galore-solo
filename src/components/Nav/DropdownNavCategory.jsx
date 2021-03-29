@@ -10,19 +10,19 @@ function DropdownNavCategory(props) {
   // Grabs information from Global Redex Store
   const user = useSelector(store => store.user);
   const userList = useSelector(store => store.userList);
-  const activecategory = useSelector(store => store.activeCategory);
+  const activecategory = useSelector(store => store.dpCategory);
 
   // (STRETCH TO ADD DROP DOWN CATEGORY LIST)
   // Get user list to populate drop-down list
-   useEffect(() => {
-     dispatch({
-       type: 'FETCH_ACTIVE_CATEGORY',
-       payload: {userId: user.id},
-     });
-   }, []);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: 'FETCH_ACTIVE_CATEGORY',
+  //     payload: {userId: user.id},
+  //   });
+  // }, []);
 
    // Upon select a user from drop down list, then go to the discover page
-   const handleCategoryChange = (evt) => {
+  const handleCategoryChange = (evt) => {
     let newCategory = evt.target.value;
     categoryChange(newCategory);
     //history.push(`/discoveruser/${newUser}`);
@@ -39,17 +39,6 @@ function DropdownNavCategory(props) {
               userId: user.id,
             }
           });
-
-        // Save this action in store
-        dispatch({
-          type: 'SET_PREVIOUS_ACTION',
-          payload: {
-            actionType: 'FETCH_ACTIVE_ARTWORK',
-            categoryId: newCategory,
-            userId: user.id,
-            discover_userId: props.discover_userId
-          }
-        });
 
     }
     else {  // Fetch artworks by category and by userId

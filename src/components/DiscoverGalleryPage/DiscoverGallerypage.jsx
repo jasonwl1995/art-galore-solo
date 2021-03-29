@@ -23,7 +23,12 @@ function DiscoverGalleryPage() {
       type: 'DISCOVER_GALLERY_ARTWORK',
       payload: {userid: user.id},
     });
+    dispatch({
+      type: 'FETCH_ACTIVE_CATEGORY',
+      payload: {userId: user.id},
+    });
   }, []);
+
 
   return(
     <div>
@@ -32,7 +37,7 @@ function DiscoverGalleryPage() {
         <h2>Browse through some artworks from other artists!</h2>
 
         {/* Displays a dropdown list of all other users 
-            with at least 1 artwork in their gallery */}
+            with at least 1 artwork in their gallery 
         {user.id && (
           <>
           <div>
@@ -41,6 +46,7 @@ function DiscoverGalleryPage() {
           </div>
           </>
         )}
+         */}
 
         {/* Displays a dropdown list of all categories 
             with at least 1 artwork in that category */}

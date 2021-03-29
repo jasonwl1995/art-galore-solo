@@ -184,7 +184,6 @@ function* unlikeArtworkDetail(action) {
   let data = action.payload;
 console.log('unlikeArtworkDetail', data);
   try {
-    // need for credentials ???
     const response = yield axios.put('/api/likes/unlike', data);
 
     if (response.status === 200)

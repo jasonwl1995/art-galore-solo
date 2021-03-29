@@ -51,7 +51,7 @@ app.use('/api/category', categoryRouter);
 app.use('/api/discoveruser', discoveruserRouter);
 app.use('/api/likes', likesRouter);
 app.use('/api/aws', awsRouter);
-app.use('/api/dpcatergory', dpCategoryRouter);
+app.use('/api/dpcategory', dpCategoryRouter);
 app.use('/api/dpartwork', dpArtworkRouter);
 
 // Serve static files

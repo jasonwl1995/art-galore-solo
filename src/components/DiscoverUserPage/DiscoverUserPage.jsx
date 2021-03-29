@@ -42,11 +42,12 @@ return(
       artworkList[0].intro}</h2>
 
       {/* Displays a dropdown list of all other users 
-          with at least 1 artwork in their gallery */}
+          with at least 1 artwork in their gallery
       <div>
         <p>Search By Username:</p>
         <DropdownNav />
       </div>
+       */}
 
         {/* Displays a dropdown list of all categories 
             with at least 1 artwork in that category */}

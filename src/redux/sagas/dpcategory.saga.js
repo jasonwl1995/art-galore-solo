@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // Creates categorySAGA Generator function
-function* categorySaga() {
+function* dpCategorySaga() {
   yield takeLatest('FETCH_ACTIVE_CATEGORY', fetchActiveCategory);
   yield takeLatest('FETCH_ACTIVE_CATEGORY_BY_USER', fetchActiveCategoryByUser);
 
@@ -18,7 +18,7 @@ function* categorySaga() {
 function* fetchActiveCategory(action) {
   console.log("inside fetchActiveCategory all");
     try {
-      const response = yield axios.get(`/api/dpcatergory/${action.payload.userId}`);
+      const response = yield axios.get(`/api/dpcategory/${action.payload.userId}`);
 
       // now that the session has given us a user object
       // with an id and username set the client-side user object to let
@@ -38,8 +38,8 @@ function* fetchActiveCategory(action) {
 function* fetchActiveCategoryByUser(action) {
   console.log("inside fetchActiveCategoryByUser all");
     try {
-      const response = yield axios.get(`/api/dpcatergory/user/${action.payload.discover_userId}`);
-
+      const response = yield axios.get(`/api/dpcategory/user/${action.payload.discover_userId}`);
+      console.log('RESPONSE!!!!!!!!', response.data);
       yield put({ type: 'SET_ACTIVE_CATEGORY', payload: response.data });
     } catch (error) {
       console.log('fetchActiveCategoryByUser get request failed', error);
@@ -88,4 +88,4 @@ function* fetchActiveArtworkByUser(action) {
   }
 }
 
-export default categorySaga;
+export default dpCategorySaga;
