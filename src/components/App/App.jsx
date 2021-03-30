@@ -23,7 +23,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import './App.css';
 
 // Import created components
-import DiscoverGalleryPage from '../DiscoverGalleryPage/DiscoverGalleryPage.jsx';
+import DiscoverGalleryPage from '../DiscoverGalleryPage/DiscoverGalleryPage';
 import MyGalleryPage from '../MyGalleryPage/MyGalleryPage';
 import EditArtworkPage from '../EditArtworkPage/EditArtworkPage';
 import MyArtworkDetail from '../MyArtworkDetail/MyArtworkDetail';
