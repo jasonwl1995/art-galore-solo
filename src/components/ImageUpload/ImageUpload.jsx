@@ -45,7 +45,7 @@ class ImageUpload extends Component {
       // signingUrlQueryParams: {uploadType: 'avatar'},
     }
 
-    const s3Url = 'https://art-gallery-primesolo.s3.amazonaws.com'
+    const s3Url = process.env.REACT_APP_S3_URL;
 
     // Displays text inside the dropbox
     // const innerDropElement = (
@@ -67,7 +67,7 @@ class ImageUpload extends Component {
         style={dropzoneStyle}
         s3Url={s3Url}
         maxSize={1024 * 1024 * 5}
-        upload={uploadOptions}
+        upload={{}}
       />
     )
   }
