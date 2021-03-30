@@ -63,26 +63,20 @@ return(
     <main>
     <Box align="center">
     <Box width="60%" border={1} borderRadius={16} className="profileCard">
+      
       <Typography variant="h3">
         <Box lineHeight={2} fontWeight="fontWeightBold">
           {artworkList && artworkList.length &&
           artworkList[0].username}'s Gallery!
         </Box>
       </Typography>
+
       <Typography variant="body1">
           <Box align="center" lineHeight={2}>
             {artworkList && artworkList.length &&
             artworkList[0].intro}
           </Box>
       </Typography>
-      
-        
-        <Typography variant="body1">
-          <Box align="center" lineHeight={2}>
-            {artworkList && artworkList.length &&
-            artworkList[0].intro}
-          </Box>
-        </Typography>
       </Box>
       </Box>
 
