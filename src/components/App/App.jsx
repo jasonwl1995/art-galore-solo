@@ -34,7 +34,7 @@ import LikesGalleryPage from '../LikesGalleryPage/LikesGalleryPage';
 
 // MATERIAL-UI IMPORTS
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import  CssBaseLine from '@material-ui/core/CssBaseLine';
+import  {CssBaseLine} from '@material-ui/core';
 
 const appTheme = createMuiTheme({
   palette: {
