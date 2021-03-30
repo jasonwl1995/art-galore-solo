@@ -40,7 +40,7 @@ class ImageUpload extends Component {
   render() {
 
     const uploadOptions = {
-      server: 'http://localhost:5000',
+      server: 'https://art-galore.herokuapp.com/',
       // Works with or without, used to assign url query params, can look up later
       // signingUrlQueryParams: {uploadType: 'avatar'},
     }
