@@ -34,7 +34,7 @@ import LikesGalleryPage from '../LikesGalleryPage/LikesGalleryPage';
 
 // MATERIAL-UI IMPORTS
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import  {CssBaseLine} from '@material-ui/core';
+import  { CssBaseline } from '@material-ui/core/CssBaseline';
 
 const appTheme = createMuiTheme({
   palette: {
@@ -60,7 +60,7 @@ function App() {
 
   return (
     <ThemeProvider theme={appTheme}>
-    <CssBaseLine />
+    <CssBaseline />
     <Router>
       <div>
         <Nav />
